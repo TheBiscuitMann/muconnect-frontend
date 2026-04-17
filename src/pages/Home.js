@@ -2,13 +2,13 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import API from '../services/api';
 import muLogo from '../assets/MU_Logo.jpg';
-import realBanner from '../assets/mu_banner.jpg'; // <-- Your real image!
+import realBanner from '../assets/mu_banner.jpg'; 
 
 const NAVY = '#1e2a6e';
 const RED  = '#e31e24';
 const GREY = '#6b7280';
 
-// ── Mega Menu Data Structure ──────────────────────────────────────
+// ── Mega Menu Data Structures ─────────────────────────────────────
 const ABOUT_MENU = [
   {
     title: 'ABOUT MU',
@@ -25,6 +25,26 @@ const ABOUT_MENU = [
   {
     title: 'Authorities',
     links: ['Syndicate', 'Academic Council']
+  }
+];
+
+// ✨ NEW: Academic Menu Data matching your specific departments
+const ACADEMIC_MENU = [
+  {
+    title: 'School of Science & Technology',
+    links: ['Computer Science & Engineering (CSE)', 'Data Science', 'Software Engineering','Electrical and Electronics Engineering']
+  },
+  {
+    title: 'School of Business & Economics',
+    links: ['Business Administration (BBA)', 'Business Administration (BA)', 'Economics']
+  },
+  {
+    title: 'School of Humanities',
+    links: ['English']
+  },
+  {
+    title: 'School of Law',
+    links: ['Law']
   }
 ];
 
@@ -88,7 +108,6 @@ export default function Home() {
             <div key={l} style={{ height: '100%', display: 'flex', alignItems: 'center' }}>
                  
               <button 
-                // ✨ FIX: Changed to pure onClick toggle, removed hover logic!
                 onClick={() => { 
                   setActiveNav(l); 
                   if (l === 'Notices') {
@@ -121,8 +140,8 @@ export default function Home() {
                 )}
               </button>
 
-              {/* ── THE MEGA MENU DROPDOWN ── */}
-              {l === 'About' && hoveredMenu === 'About' && (
+              {/* ── THE MEGA MENU DROPDOWN (DYNAMIC FOR BOTH ABOUT & ACADEMICS) ── */}
+              {(l === 'About' || l === 'Academics') && hoveredMenu === l && (
                 <div style={{
                   position: 'absolute', top: '68px', left: 0, right: 0,
                   background: NAVY, padding: '40px 60px',
@@ -132,7 +151,9 @@ export default function Home() {
                   animation: 'fadeIn 0.2s ease-out'
                 }}>
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '40px', width: '100%', maxWidth: '1300px' }}>
-                    {ABOUT_MENU.map(col => (
+                    
+                    {/* ✨ SMART LOGIC: If hoveredMenu is 'About', map ABOUT_MENU. Otherwise map ACADEMIC_MENU */}
+                    {(hoveredMenu === 'About' ? ABOUT_MENU : ACADEMIC_MENU).map(col => (
                       <div key={col.title}>
                         <div style={{ borderBottom: '1px solid rgba(255,255,255,0.2)', paddingBottom: '12px', marginBottom: '16px' }}>
                           <span style={{ color: '#fff', fontSize: '14px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.5px' }}>{col.title}</span>
@@ -140,12 +161,19 @@ export default function Home() {
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
                           {col.links.map(link => (
                             <span key={link} 
+
                               onClick={() => { 
+                                // ✨ FIX: Specific routing for About links
                                 if(link === 'Brief History') navigate('/about/history');
                                 if(link === 'Vision, Mission & Strategy') navigate('/about/vision-mission');
                                 if(link === 'Accreditation') navigate('/about/accreditation');
                                 if(link === 'International Recognition') navigate('/about/international-recognition');
                                 if(link === 'Facts About MU') navigate('/about/facts');
+                                
+                                // ✨ FIX: Specific routing for Academic links
+                                if(link === 'Computer Science & Engineering (CSE)') navigate('/academics/cse');
+                                
+                                // Closes the menu
                                 setHoveredMenu(null); 
                               }}
                               style={{ color: 'rgba(255,255,255,0.65)', fontSize: '14px', cursor: 'pointer', transition: 'all 0.2s', display: 'flex', alignItems: 'center', gap: '8px' }}
@@ -185,7 +213,6 @@ export default function Home() {
       {/* ═══════════════════════════════════════════════════════
           HERO — Split Canvas design
       ═══════════════════════════════════════════════════════ */}
-      {/* ✨ FIX: Added your background image to the main Hero container! */}
       <div ref={heroRef} style={{ 
         minHeight: 'calc(100vh - 68px)', 
         display: 'flex', 
@@ -428,7 +455,10 @@ export default function Home() {
               { code: 'ENG',  name: 'English',                        school: 'Humanities',           students: '400+',   color: GREY,  tag: null },
               { code: 'DS',   name: 'Data Science',                   school: 'Science & Technology', students: '200+',   color: NAVY,  tag: 'New 2026' },
             ].map((d, i) => (
-              <div key={i} style={{
+              <div key={i} 
+                // ✨ FIX: Specific routing for the CSE Card
+                onClick={() => { if(d.code === 'CSE') navigate('/academics/cse'); }} 
+                style={{
                 background: '#fff', borderRadius: '12px', padding: '28px',
                 border: '1px solid #eee', cursor: 'pointer',
                 transition: 'all 0.25s', position: 'relative', overflow: 'hidden',

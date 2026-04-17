@@ -8,6 +8,7 @@ import BriefHistory from './pages/BriefHistory';
 import VisionMission from './pages/VisionMission';
 import Accreditation from './pages/Accreditation';
 import FactsAbout from './pages/FactsAbout';
+import CSEDepartment from './pages/CSEDepartment';
 
 import InternationalRecognition from './pages/InternationalRecognition';
 // Auth
@@ -41,6 +42,7 @@ function App() {
         <Route path="/about/accreditation" element={<Accreditation />} />
         <Route path="/about/international-recognition" element={<InternationalRecognition />} />
         <Route path="/about/facts" element={<FactsAbout />} />
+        <Route path="/academics/cse" element={<CSEDepartment />} />
 
         {/* Auth */}
         <Route path="/login" element={<Login />} />
