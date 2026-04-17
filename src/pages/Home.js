@@ -2,10 +2,31 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import API from '../services/api';
 import muLogo from '../assets/MU_Logo.jpg';
+import realBanner from '../assets/mu_banner.jpg'; // <-- Your real image!
 
 const NAVY = '#1e2a6e';
 const RED  = '#e31e24';
 const GREY = '#6b7280';
+
+// ── Mega Menu Data Structure ──────────────────────────────────────
+const ABOUT_MENU = [
+  {
+    title: 'ABOUT MU',
+    links: ['Brief History', 'Vision, Mission & Strategy', 'Accreditation', 'International Recognition', 'Facts About MU']
+  },
+  {
+    title: 'MU Trustees',
+    links: ['Board of Trustees']
+  },
+  {
+    title: 'Executive Leaders',
+    links: ['VC, Pro-VC & Treasurer', 'Deans, Chairs & Directors', 'Administration']
+  },
+  {
+    title: 'Authorities',
+    links: ['Syndicate', 'Academic Council']
+  }
+];
 
 // ── Reusable section label ────────────────────────────────────────
 function SectionLabel({ num, text }) {
@@ -27,6 +48,9 @@ export default function Home() {
   const [notices, setNotices]   = useState([]);
   const [scrolled, setScrolled] = useState(false);
   const [activeNav, setActiveNav] = useState(null);
+  
+  // State to track which mega-menu is open
+  const [hoveredMenu, setHoveredMenu] = useState(null); 
   const heroRef = useRef(null);
 
   useEffect(() => {
@@ -58,27 +82,86 @@ export default function Home() {
           <img src={muLogo} alt="MU" style={{ height: '46px', objectFit: 'contain' }} />
         </div>
 
-        {/* Center links */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '2px' }}>
+        {/* Center links with Mega Menu Logic */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '2px', height: '100%' }}>
           {NAV_LINKS.map(l => (
-            <button key={l}
-              onClick={() => { setActiveNav(l); if (l === 'Notices') navigate('/notices'); }}
-              style={{
-                background: 'none', border: 'none', cursor: 'pointer',
-                padding: '6px 14px', borderRadius: '6px',
-                fontSize: '13px', fontWeight: '600',
-                color: activeNav === l ? RED : NAVY,
-                letterSpacing: '0.2px',
-                position: 'relative', transition: 'all 0.2s',
-              }}
-              onMouseOver={e => { if (activeNav !== l) e.currentTarget.style.color = RED; e.currentTarget.style.background = '#fff5f5'; }}
-              onMouseOut={e => { if (activeNav !== l) e.currentTarget.style.color = NAVY; e.currentTarget.style.background = 'none'; }}
-            >
-              {l}
-              {activeNav === l && (
-                <span style={{ position: 'absolute', bottom: '0', left: '50%', transform: 'translateX(-50%)', width: '4px', height: '4px', borderRadius: '50%', background: RED }} />
+            <div key={l} style={{ height: '100%', display: 'flex', alignItems: 'center' }}>
+                 
+              <button 
+                // ✨ FIX: Changed to pure onClick toggle, removed hover logic!
+                onClick={() => { 
+                  setActiveNav(l); 
+                  if (l === 'Notices') {
+                    navigate('/notices');
+                    setHoveredMenu(null);
+                  } else if (l === 'About' || l === 'Academics' || l === 'Admission') {
+                    // Toggle menu open/close on click
+                    setHoveredMenu(hoveredMenu === l ? null : l);
+                  } else {
+                    setHoveredMenu(null);
+                  }
+                }}
+                style={{
+                  background: 'none', border: 'none', cursor: 'pointer',
+                  padding: '6px 14px', borderRadius: '6px',
+                  fontSize: '13px', fontWeight: '600',
+                  color: activeNav === l || hoveredMenu === l ? RED : NAVY,
+                  letterSpacing: '0.2px',
+                  position: 'relative', transition: 'all 0.2s',
+                  display: 'flex', alignItems: 'center', gap: '4px'
+                }}
+              >
+                {l}
+                {/* Add a tiny arrow for dropdown indicators */}
+                {(l === 'About' || l === 'Academics' || l === 'Admission') && (
+                  <span style={{ fontSize: '10px', transform: hoveredMenu === l ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }}>▼</span>
+                )}
+                {activeNav === l && (
+                  <span style={{ position: 'absolute', bottom: '-4px', left: '50%', transform: 'translateX(-50%)', width: '4px', height: '4px', borderRadius: '50%', background: RED }} />
+                )}
+              </button>
+
+              {/* ── THE MEGA MENU DROPDOWN ── */}
+              {l === 'About' && hoveredMenu === 'About' && (
+                <div style={{
+                  position: 'absolute', top: '68px', left: 0, right: 0,
+                  background: NAVY, padding: '40px 60px',
+                  borderTop: '1px solid rgba(255,255,255,0.1)',
+                  boxShadow: '0 12px 32px rgba(0,0,0,0.15)',
+                  display: 'flex', justifyContent: 'center', cursor: 'default',
+                  animation: 'fadeIn 0.2s ease-out'
+                }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '40px', width: '100%', maxWidth: '1300px' }}>
+                    {ABOUT_MENU.map(col => (
+                      <div key={col.title}>
+                        <div style={{ borderBottom: '1px solid rgba(255,255,255,0.2)', paddingBottom: '12px', marginBottom: '16px' }}>
+                          <span style={{ color: '#fff', fontSize: '14px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.5px' }}>{col.title}</span>
+                        </div>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                          {col.links.map(link => (
+                            <span key={link} 
+                              onClick={() => { 
+                                if(link === 'Brief History') navigate('/about/history');
+                                if(link === 'Vision, Mission & Strategy') navigate('/about/vision-mission');
+                                if(link === 'Accreditation') navigate('/about/accreditation');
+                                if(link === 'International Recognition') navigate('/about/international-recognition');
+                                if(link === 'Facts About MU') navigate('/about/facts');
+                                setHoveredMenu(null); 
+                              }}
+                              style={{ color: 'rgba(255,255,255,0.65)', fontSize: '14px', cursor: 'pointer', transition: 'all 0.2s', display: 'flex', alignItems: 'center', gap: '8px' }}
+                              onMouseOver={e => { e.target.style.color = '#fff'; e.target.style.transform = 'translateX(4px)'; }}
+                              onMouseOut={e => { e.target.style.color = 'rgba(255,255,255,0.65)'; e.target.style.transform = 'translateX(0)'; }}
+                            >
+                              <span style={{ color: RED, fontSize: '10px' }}>—</span> {link}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               )}
-            </button>
+            </div>
           ))}
         </div>
 
@@ -102,13 +185,23 @@ export default function Home() {
       {/* ═══════════════════════════════════════════════════════
           HERO — Split Canvas design
       ═══════════════════════════════════════════════════════ */}
-      <div ref={heroRef} style={{ minHeight: 'calc(100vh - 68px)', display: 'flex', position: 'relative', overflow: 'hidden' }}>
-
-        {/* Left panel — white with big typography */}
+      {/* ✨ FIX: Added your background image to the main Hero container! */}
+      <div ref={heroRef} style={{ 
+        minHeight: 'calc(100vh - 68px)', 
+        display: 'flex', 
+        position: 'relative', 
+        overflow: 'hidden',
+        backgroundImage: `url(${realBanner})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center'
+      }}>
+        <style>{`@keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }`}</style>
+        
+        {/* Left panel — Semi-transparent white */}
         <div style={{
           flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center',
           padding: '80px 64px 80px 60px', position: 'relative', zIndex: 2,
-          background: '#fff',
+          background: 'rgba(255, 255, 255, 0.94)', // Made slightly transparent
         }}>
           {/* Chartered badge */}
           <div style={{
@@ -125,11 +218,11 @@ export default function Home() {
 
           {/* Giant headline */}
           <div style={{ marginBottom: '32px' }}>
-            <h1 style={{ margin: 0, fontSize: '80px', fontWeight: '900', lineHeight: 0.95, letterSpacing: '-4px', color: NAVY }}>
+            <h1 style={{ margin: '0 0 16px', fontSize: '80px', fontWeight: '900', lineHeight: 0.95, letterSpacing: '-4px', color: NAVY }}>
               Edu
               <span style={{ color: RED }}>.</span>
             </h1>
-            <h1 style={{ margin: 0, fontSize: '80px', fontWeight: '900', lineHeight: 0.95, letterSpacing: '-4px', color: '#c8cde3' }}>
+            <h1 style={{ margin: '0 0 16px', fontSize: '80px', fontWeight: '900', lineHeight: 0.95, letterSpacing: '-4px', color: '#c8cde3' }}>
               Not Just
             </h1>
             <h1 style={{ margin: 0, fontSize: '80px', fontWeight: '900', lineHeight: 0.95, letterSpacing: '-4px', color: NAVY }}>
@@ -174,10 +267,10 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Right panel — navy with stat grid */}
+        {/* Right panel — Semi-transparent navy with stat grid */}
         <div style={{
           width: '420px', flexShrink: 0,
-          background: NAVY,
+          background: 'rgba(30, 42, 110, 0.92)', // Made slightly transparent
           display: 'flex', flexDirection: 'column',
           justifyContent: 'center',
           padding: '60px 48px',
@@ -197,7 +290,7 @@ export default function Home() {
 
           {/* Stat items — stacked vertically */}
           {[
-            { val: '6,000+',  label: 'Active Students',       sub: 'Across all departments' },
+            { val: '6,000+',  label: 'Active Students',      sub: 'Across all departments' },
             { val: '250+',    label: 'Expert Faculty',         sub: 'PhD holders & practitioners' },
             { val: '22+',     label: 'Years of Excellence',    sub: 'Established 2003' },
             { val: '10,000+', label: 'Global Alumni',          sub: 'In 30+ countries' },

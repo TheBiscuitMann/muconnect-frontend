@@ -2,9 +2,14 @@ import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 // Public pages
-import Home    from './pages/Home';
-import Notices from './pages/Notices';
+import Home         from './pages/Home';
+import Notices      from './pages/Notices';
+import BriefHistory from './pages/BriefHistory';
+import VisionMission from './pages/VisionMission';
+import Accreditation from './pages/Accreditation';
+import FactsAbout from './pages/FactsAbout';
 
+import InternationalRecognition from './pages/InternationalRecognition';
 // Auth
 import Login from './pages/Login';
 
@@ -29,8 +34,13 @@ function App() {
       <Routes>
 
         {/* Public website */}
-        <Route path="/"        element={<Home />} />
-        <Route path="/notices" element={<Notices />} />
+        <Route path="/"              element={<Home />} />
+        <Route path="/notices"       element={<Notices />} />
+        <Route path="/about/history" element={<BriefHistory />} />
+        <Route path="/about/vision-mission" element={<VisionMission />} />
+        <Route path="/about/accreditation" element={<Accreditation />} />
+        <Route path="/about/international-recognition" element={<InternationalRecognition />} />
+        <Route path="/about/facts" element={<FactsAbout />} />
 
         {/* Auth */}
         <Route path="/login" element={<Login />} />

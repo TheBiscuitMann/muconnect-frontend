@@ -108,11 +108,12 @@ export default function StudentDashboard() {
     return 'Good evening';
   };
 
+  // ADDED PEER NETWORK ROUTE HERE
   const navItems = [
     { icon: '🏠', label: 'Dashboard',  path: '/student/dashboard' },
     { icon: '📊', label: 'My Results', path: '/student/results' },
     { icon: '📄', label: 'Transcript', path: '/student/transcript' },
-
+    { icon: '🤝', label: 'Peer Network', path: '/student/peer-network' },
     { icon: '👤', label: 'Profile',    path: '/student/profile' },
   ];
 
@@ -306,10 +307,11 @@ export default function StudentDashboard() {
                 <h3 style={{ margin: 0, fontSize: '16px', fontWeight: '700', color: NAVY, fontFamily: 'Georgia, serif' }}>Quick Actions</h3>
                 <div style={{ width: '4px', height: '20px', background: RED, borderRadius: '2px' }} />
               </div>
+              {/* ADDED NEW MENTOR BUTTON TO GRID HERE */}
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-                <ActionCard icon="📊" label="View Results"    desc="Check all published grades"     color={NAVY}       onClick={() => navigate('/student/results')}    delay={150} />
+                <ActionCard icon="📊" label="View Results"    desc="Check all published grades"     color={NAVY}       onClick={() => navigate('/student/results')}     delay={150} />
                 <ActionCard icon="📄" label="My Transcript"   desc="Download official transcript"   color={RED}        onClick={() => navigate('/student/transcript')}  delay={200} />
-                
+                <ActionCard icon="🤝" label="Find a Mentor"   desc="Connect with peer tutors"       color="#7c3aed"    onClick={() => navigate('/student/peer-network')} delay={250} />
                 <ActionCard icon="👤" label="My Profile"      desc="View and edit your info"        color="#059669"    onClick={() => navigate('/student/profile')}     delay={300} />
               </div>
             </div>
