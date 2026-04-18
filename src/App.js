@@ -22,6 +22,20 @@ import Profile          from './pages/Profile';
 import PeerNetwork      from './pages/PeerNetwork';
 import Chat             from './pages/Chat';
 
+// Faculty portal
+import FacultyDashboard from './pages/FacultyDashboard';
+import FacultyCourses   from './pages/FacultyCourses';
+import GradeSubmit      from './pages/GradeSubmit';
+import FacultyRetakes   from './pages/FacultyRetakes';
+import Attendance       from './pages/Attendance';
+
+// Admin panel
+import AdminDashboard  from './pages/AdminDashboard';
+import AdminResults    from './pages/AdminResults';
+import AdminStudents   from './pages/AdminStudents';
+import AdminFaculty    from './pages/AdminFaculty';
+import AdminNotices    from './pages/AdminNotices';
+
 // Private route guard
 const PrivateRoute = ({ children, role }) => {
   const token = localStorage.getItem('token');
@@ -37,37 +51,39 @@ function App() {
       <Routes>
 
         {/* Public website */}
-        <Route path="/"                                 element={<Home />} />
-        <Route path="/notices"                          element={<Notices />} />
-        <Route path="/about/history"                    element={<BriefHistory />} />
-        <Route path="/about/vision-mission"             element={<VisionMission />} />
-        <Route path="/about/accreditation"              element={<Accreditation />} />
-        <Route path="/about/international-recognition"  element={<InternationalRecognition />} />
-        <Route path="/about/facts"                      element={<FactsAbout />} />
-        <Route path="/academics/cse"                    element={<CSEDepartment />} />
+        <Route path="/"                                element={<Home />} />
+        <Route path="/notices"                         element={<Notices />} />
+        <Route path="/about/history"                   element={<BriefHistory />} />
+        <Route path="/about/vision-mission"            element={<VisionMission />} />
+        <Route path="/about/accreditation"             element={<Accreditation />} />
+        <Route path="/about/international-recognition" element={<InternationalRecognition />} />
+        <Route path="/about/facts"                     element={<FactsAbout />} />
+        <Route path="/academics/cse"                   element={<CSEDepartment />} />
 
         {/* Auth */}
         <Route path="/login" element={<Login />} />
 
         {/* Student portal */}
-        <Route path="/student/dashboard" element={
-          <PrivateRoute role="student"><StudentDashboard /></PrivateRoute>
-        } />
-        <Route path="/student/results" element={
-          <PrivateRoute role="student"><Results /></PrivateRoute>
-        } />
-        <Route path="/student/transcript" element={
-          <PrivateRoute role="student"><Transcript /></PrivateRoute>
-        } />
-        <Route path="/student/profile" element={
-          <PrivateRoute role="student"><Profile /></PrivateRoute>
-        } />
-        <Route path="/student/peer-network" element={
-          <PrivateRoute role="student"><PeerNetwork /></PrivateRoute>
-        } />
-        <Route path="/student/chat/:conversationId" element={
-          <PrivateRoute role="student"><Chat /></PrivateRoute>
-        } />
+        <Route path="/student/dashboard"    element={<PrivateRoute role="student"><StudentDashboard /></PrivateRoute>} />
+        <Route path="/student/results"      element={<PrivateRoute role="student"><Results /></PrivateRoute>} />
+        <Route path="/student/transcript"   element={<PrivateRoute role="student"><Transcript /></PrivateRoute>} />
+        <Route path="/student/profile"      element={<PrivateRoute role="student"><Profile /></PrivateRoute>} />
+        <Route path="/student/peer-network" element={<PrivateRoute role="student"><PeerNetwork /></PrivateRoute>} />
+        <Route path="/student/chat/:conversationId" element={<PrivateRoute role="student"><Chat /></PrivateRoute>} />
+
+        {/* Faculty portal */}
+        <Route path="/faculty/dashboard"        element={<PrivateRoute role="faculty"><FacultyDashboard /></PrivateRoute>} />
+        <Route path="/faculty/courses"          element={<PrivateRoute role="faculty"><FacultyCourses /></PrivateRoute>} />
+        <Route path="/faculty/grades/:courseId" element={<PrivateRoute role="faculty"><GradeSubmit /></PrivateRoute>} />
+        <Route path="/faculty/retakes"          element={<PrivateRoute role="faculty"><FacultyRetakes /></PrivateRoute>} />
+        <Route path="/faculty/attendance"       element={<PrivateRoute role="faculty"><Attendance /></PrivateRoute>} />
+
+        {/* Admin panel */}
+        <Route path="/admin/dashboard" element={<PrivateRoute role="admin"><AdminDashboard /></PrivateRoute>} />
+        <Route path="/admin/results"   element={<PrivateRoute role="admin"><AdminResults /></PrivateRoute>} />
+        <Route path="/admin/students"  element={<PrivateRoute role="admin"><AdminStudents /></PrivateRoute>} />
+        <Route path="/admin/faculty"   element={<PrivateRoute role="admin"><AdminFaculty /></PrivateRoute>} />
+        <Route path="/admin/notices"   element={<PrivateRoute role="admin"><AdminNotices /></PrivateRoute>} />
 
         {/* Fallback */}
         <Route path="*" element={<Navigate to="/" />} />
