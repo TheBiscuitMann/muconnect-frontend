@@ -56,10 +56,11 @@ export default function Transcript() {
   };
 
   const navItems = [
-    { icon: '🏠', label: 'Dashboard',  path: '/student/dashboard' },
-    { icon: '📊', label: 'My Results', path: '/student/results' },
-    { icon: '📄', label: 'Transcript', path: '/student/transcript' },
-    { icon: '👤', label: 'Profile',    path: '/student/profile' },
+    { icon: '🏠', label: 'Dashboard',    path: '/student/dashboard' },
+    { icon: '📊', label: 'My Results',   path: '/student/results' },
+    { icon: '📄', label: 'Transcript',   path: '/student/transcript' },
+    { icon: '🤝', label: 'Peer Network', path: '/student/peer-network' },
+    { icon: '👤', label: 'Profile',      path: '/student/profile' },
   ];
 
   if (loading) return (
@@ -222,7 +223,6 @@ export default function Transcript() {
                 semesters.map((sem, semIdx) => (
                   <div key={semIdx} style={{ marginBottom: semIdx < semesters.length - 1 ? '36px' : 0 }}>
 
-                    {/* Semester header */}
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px', paddingBottom: '10px', borderBottom: `2px solid ${NAVY}10` }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                         <div style={{ width: '4px', height: '20px', background: RED, borderRadius: '2px' }} />
@@ -242,7 +242,6 @@ export default function Transcript() {
                       </div>
                     </div>
 
-                    {/* Course table */}
                     <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
                       <thead>
                         <tr style={{ background: '#f7f8fc' }}>
@@ -272,7 +271,6 @@ export default function Transcript() {
                 ))
               )}
 
-              {/* Summary footer */}
               {semesters.length > 0 && (
                 <div style={{ marginTop: '36px', padding: '24px 28px', background: `${NAVY}06`, borderRadius: '12px', border: `1px solid ${NAVY}12`, display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '20px' }}>
                   {[
@@ -289,7 +287,6 @@ export default function Transcript() {
                 </div>
               )}
 
-              {/* Official stamp area */}
               <div style={{ marginTop: '40px', paddingTop: '24px', borderTop: '1px solid #eee', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
                 <div>
                   <p style={{ margin: '0 0 4px', fontSize: '11px', color: GREY }}>Generated on</p>

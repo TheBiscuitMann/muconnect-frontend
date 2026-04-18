@@ -47,7 +47,7 @@ export default function Results() {
   const location  = useLocation();
   const [data,     setData]     = useState(null);
   const [loading,  setLoading]  = useState(true);
-  const [selected, setSelected] = useState(0);  // index of selected semester
+  const [selected, setSelected] = useState(0);
   const [animate,  setAnimate]  = useState(true);
 
   useEffect(() => {
@@ -57,20 +57,19 @@ export default function Results() {
       .finally(() => setLoading(false));
   }, [navigate]);
 
-  // Semester order: newest first
   const semesters = data?.semesters || [];
 
-  // When user picks a semester, animate the right panel
   const handleSelect = (idx) => {
     setAnimate(false);
     setTimeout(() => { setSelected(idx); setAnimate(true); }, 120);
   };
 
   const navItems = [
-    { icon: '🏠', label: 'Dashboard',  path: '/student/dashboard' },
-    { icon: '📊', label: 'My Results', path: '/student/results' },
-    { icon: '📄', label: 'Transcript', path: '/student/transcript' },
-    { icon: '👤', label: 'Profile',    path: '/student/profile' },
+    { icon: '🏠', label: 'Dashboard',    path: '/student/dashboard' },
+    { icon: '📊', label: 'My Results',   path: '/student/results' },
+    { icon: '📄', label: 'Transcript',   path: '/student/transcript' },
+    { icon: '🤝', label: 'Peer Network', path: '/student/peer-network' },
+    { icon: '👤', label: 'Profile',      path: '/student/profile' },
   ];
 
   const user = JSON.parse(localStorage.getItem('user') || '{}');
@@ -211,7 +210,6 @@ export default function Results() {
                   >
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
                       <div>
-                        {/* Season tag */}
                         <span style={{
                           fontSize: '10px', fontWeight: '800', textTransform: 'uppercase',
                           letterSpacing: '1px', padding: '2px 8px', borderRadius: '20px',
@@ -278,14 +276,12 @@ export default function Results() {
                         </div>
                       </div>
 
-                      {/* GPA bar */}
                       <div style={{ marginBottom: '20px' }}>
                         <div style={{ height: '6px', background: 'rgba(255,255,255,0.1)', borderRadius: '3px', overflow: 'hidden' }}>
                           <div style={{ height: '100%', width: gpaWidth(currentSem.gpa), background: `linear-gradient(90deg, #4ade80, #22c55e)`, borderRadius: '3px' }} />
                         </div>
                       </div>
 
-                      {/* Summary stats */}
                       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '12px' }}>
                         {[
                           { label: 'Total Courses', value: currentSem.courses?.length || 0, icon: '📚' },
@@ -319,7 +315,6 @@ export default function Results() {
                           onMouseOver={e => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = '0 12px 28px rgba(30,42,110,0.1)'; e.currentTarget.style.borderColor = gc.border; }}
                           onMouseOut={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 2px 8px rgba(30,42,110,0.04)'; e.currentTarget.style.borderColor = '#f0f0f0'; }}
                         >
-                          {/* Top color bar */}
                           <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '3px', background: gc.text }} />
 
                           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '14px' }}>
@@ -329,7 +324,6 @@ export default function Results() {
                                 {course.title}
                               </h4>
                             </div>
-                            {/* Grade badge */}
                             <div style={{
                               width: '52px', height: '52px', borderRadius: '12px', flexShrink: 0,
                               background: gc.bg, border: `1.5px solid ${gc.border}`,
@@ -340,7 +334,6 @@ export default function Results() {
                             </div>
                           </div>
 
-                          {/* Stats row */}
                           <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
                             <div style={{ flex: 1, background: '#f7f8fc', borderRadius: '8px', padding: '8px 12px', textAlign: 'center' }}>
                               <p style={{ margin: '0 0 2px', fontSize: '11px', color: GREY, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Marks</p>
@@ -356,7 +349,6 @@ export default function Results() {
                             </div>
                           </div>
 
-                          {/* Marks progress bar */}
                           {course.marks && (
                             <div style={{ marginTop: '12px' }}>
                               <div style={{ height: '4px', background: '#f0f0f0', borderRadius: '2px', overflow: 'hidden' }}>
