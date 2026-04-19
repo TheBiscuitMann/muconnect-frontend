@@ -6,7 +6,6 @@ import muLogo from '../assets/MU_Logo.jpg';
 import muBanner from '../assets/mu_banner.jpg'; 
 
 // ── FACULTY IMAGE IMPORTS ──
-// ── FACULTY IMAGE IMPORTS ──
 import nazrulImg from '../assets/nazrul_haq.png'; 
 import mukammelImg from '../assets/mukammel.jpg';
 import headImage from '../assets/dept_head.png';
@@ -30,20 +29,14 @@ const GREY = '#6b7280';
 
 // ✨ REAL FACULTY DATA
 const FACULTY_DATA = [
-  // User Requested: First Row
-
-{ name: 'Md. Mahfujul Hasan', title: 'Associate Professor & Head', img: headImage },
+  // First Row
+  { name: 'Md. Mahfujul Hasan', title: 'Associate Professor & Head', img: headImage },
   { name: 'Prof. Dr. Md. Nazrul Haque Chowdhury', title: 'Dean, School of Science & Technology', img: nazrulImg },
   { name: 'Choudhury M. Mukammel Wahid', title: 'Professor', img: mukammelImg },
-
-
 
   { name: 'Abdul Wadud Shakib', title: 'Lecturer', img: shakibImg },
   { name: 'Raisa Fairooz', title: 'Lecturer', img: raisaImg },
   { name: 'Aisha Haider Chowdhury', title: 'Lecturer', img: aishaImg },
-
-  // Leadership & Professors
-  
 
   // Lecturers
   { name: 'Md. Shamihul Islam Khan Limon', title: 'Lecturer', img: limonImg },
@@ -105,10 +98,19 @@ export default function CSEDepartment() {
       {/* ── DEPARTMENT SUB-NAV ── */}
       <div style={{ background: NAVY, borderBottom: `4px solid ${RED}`, position: 'sticky', top: '68px', zIndex: 99 }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', gap: '32px', padding: '0 40px' }}>
-          {['Overview', 'Faculty', 'BS in CSE', 'Research', 'Laboratories', 'Alumni'].map((tab) => (
+          {['Overview', 'Faculty', 'BSc in CSE', 'Research', 'Laboratories', 'Alumni'].map((tab) => (
             <button 
               key={tab} 
-              onClick={() => setActiveTab(tab)}
+              onClick={() => {
+                // Correctly handles routing for specific pages, and local tabs for others
+                if (tab === 'BSc in CSE') {
+                  navigate('/academics/cse/bsc');
+                } else if (tab === 'Research') { 
+                  navigate('/academics/cse/research');
+                } else {
+                  setActiveTab(tab);
+                }
+              }}
               style={{
                 background: 'none', border: 'none', 
                 color: activeTab === tab ? '#fff' : 'rgba(255,255,255,0.7)',
@@ -132,7 +134,7 @@ export default function CSEDepartment() {
         <div>
           {/* 🔘 TAB: OVERVIEW */}
           {activeTab === 'Overview' && (
-            <div>
+            <div style={{ animation: 'fadeIn 0.3s ease-out' }}>
               <div style={{ marginBottom: '48px' }}>
                 <h2 style={{ fontSize: '28px', fontWeight: '800', color: NAVY, marginBottom: '24px', borderBottom: '1px solid #eee', paddingBottom: '12px' }}>
                   Message from the Head
@@ -169,7 +171,7 @@ export default function CSEDepartment() {
                   Excellence in Engineering
                 </h2>
                 <p style={{ fontSize: '16px', color: '#444', lineHeight: 1.8, marginBottom: '16px' }}>
-                  The BS in CSE program is designed to provide students with a strong foundation in computer science principles alongside practical software engineering skills. The curriculum is continuously updated to meet global industry standards.
+                  The BSc in CSE program is designed to provide students with a strong foundation in computer science principles alongside practical software engineering skills. The curriculum is continuously updated to meet global industry standards.
                 </p>
                 <div style={{ background: '#f0f3ff', borderLeft: `4px solid ${NAVY}`, padding: '20px', borderRadius: '0 8px 8px 0' }}>
                   <h4 style={{ margin: '0 0 8px', fontSize: '16px', color: NAVY }}>IEB/BAETE Accredited</h4>
@@ -198,7 +200,7 @@ export default function CSEDepartment() {
 
           {/* 🔘 TAB: FACULTY */}
           {activeTab === 'Faculty' && (
-            <div>
+            <div style={{ animation: 'fadeIn 0.3s ease-out' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '32px' }}>
                 <div style={{ background: RED, borderRadius: '8px', padding: '8px 12px' }}>
                   <span style={{ color: '#fff', fontSize: '16px' }}>📄</span>
@@ -248,6 +250,15 @@ export default function CSEDepartment() {
                   </div>
                 ))}
               </div>
+            </div>
+          )}
+
+          {/* 🔘 FALLBACK TABS */}
+          {(activeTab === 'Laboratories' || activeTab === 'Alumni') && (
+            <div style={{ animation: 'fadeIn 0.3s ease-out', textAlign: 'center', padding: '100px 0', border: '2px dashed #eaeaea', borderRadius: '16px' }}>
+              <span style={{ fontSize: '40px', display: 'block', marginBottom: '16px' }}>🚧</span>
+              <h2 style={{ margin: '0 0 8px', color: NAVY }}>{activeTab} Section</h2>
+              <p style={{ color: GREY }}>This section is currently being updated by the department.</p>
             </div>
           )}
 
@@ -355,6 +366,7 @@ export default function CSEDepartment() {
           </div>
         </div>
       </footer>
+      <style>{`@keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }`}</style>
     </div>
   );
 }

@@ -10,12 +10,26 @@ import Accreditation            from './pages/Accreditation';
 import FactsAbout               from './pages/FactsAbout';
 import CSEDepartment            from './pages/CSEDepartment';
 import InternationalRecognition from './pages/InternationalRecognition';
+
+// Governance & Admin
 import BoardOfTrustees          from './pages/BoardOfTrustees'; 
 import ExecutiveLeaders         from './pages/ExecutiveLeaders';
 import Deans                    from './pages/Deans';
 import AcademicCouncil          from './pages/AcademicCouncil';
 import Administration           from './pages/Administration';
 
+// Academic Departments & Research
+import BscCSE                   from './pages/BscCSE';
+import CSEResearch              from './pages/CSEResearch';
+import LawDept                  from './pages/LawDept';
+import DataScience              from './pages/DataScience';
+
+// ✨ Make sure you have created these files in your pages folder!
+import English                  from './pages/EnglishDept'; 
+import SoftwareEngineering      from './pages/SoftwareEngineering';
+import BBA                      from './pages/BBA';
+import Economics                from './pages/Economics';
+import BA                from './pages/BA';
 
 
 // Auth
@@ -65,14 +79,25 @@ function App() {
         <Route path="/about/accreditation"             element={<Accreditation />} />
         <Route path="/about/international-recognition" element={<InternationalRecognition />} />
         <Route path="/about/facts"                     element={<FactsAbout />} />
-        <Route path="/academics/cse"                   element={<CSEDepartment />} />
+        
+        {/* Governance Routes */}
         <Route path="/about/trustees"                  element={<BoardOfTrustees />} />
         <Route path="/about/leaders"                   element={<ExecutiveLeaders />} />
-        <Route path="/about/deans" element={<Deans />} />
-        <Route path="/about/academic-council" element={<AcademicCouncil />} />
-        <Route path="/about/administration" element={<Administration />} />
+        <Route path="/about/deans"                     element={<Deans />} />
+        <Route path="/about/academic-council"          element={<AcademicCouncil />} />
+        <Route path="/about/administration"            element={<Administration />} />
 
-
+        {/* Academic Routes */}
+        <Route path="/academics/cse"                   element={<CSEDepartment />} />
+        <Route path="/academics/cse/bsc"               element={<BscCSE />} />
+        <Route path="/academics/cse/research"          element={<CSEResearch />} />
+        <Route path="/academics/law"                   element={<LawDept />} />
+        <Route path="/academics/data-science"          element={<DataScience />} />
+        <Route path="/academics/english"               element={<English />} />
+        <Route path="/academics/software-engineering"  element={<SoftwareEngineering />} />
+        <Route path="/academics/bba"                   element={<BBA />} />
+        <Route path="/academics/economics"             element={<Economics/>} />
+        <Route path="/academics/ba"                    element={<BA />} />
 
         {/* Auth */}
         <Route path="/login" element={<Login />} />

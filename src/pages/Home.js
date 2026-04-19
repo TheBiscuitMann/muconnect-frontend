@@ -8,7 +8,6 @@ const NAVY = '#1e2a6e';
 const RED  = '#e31e24';
 const GREY = '#6b7280';
 
-// ── Mega Menu Data Structures ─────────────────────────────────────
 const ABOUT_MENU = [
   {
     title: 'ABOUT MU',
@@ -47,7 +46,6 @@ const ACADEMIC_MENU = [
   }
 ];
 
-// ── Reusable section label ────────────────────────────────────────
 function SectionLabel({ num, text }) {
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '32px' }}>
@@ -67,7 +65,6 @@ export default function Home() {
   const [notices, setNotices]   = useState([]);
   const [scrolled, setScrolled] = useState(false);
   const [activeNav, setActiveNav] = useState(null);
-  
   const [hoveredMenu, setHoveredMenu] = useState(null); 
   const heroRef = useRef(null);
 
@@ -83,9 +80,6 @@ export default function Home() {
   return (
     <div style={{ fontFamily: "'Segoe UI', system-ui, sans-serif", color: NAVY, background: '#fff', overflowX: 'hidden' }}>
 
-      {/* ═══════════════════════════════════════════════════════
-          NAVBAR
-      ═══════════════════════════════════════════════════════ */}
       <nav style={{
         position: 'sticky', top: 0, zIndex: 999,
         height: '68px', padding: '0 60px',
@@ -134,7 +128,6 @@ export default function Home() {
                 )}
               </button>
 
-              {/* ── THE MEGA MENU DROPDOWN ── */}
               {(l === 'About' || l === 'Academics') && hoveredMenu === l && (
                 <div style={{
                   position: 'absolute', top: '68px', left: 0, right: 0,
@@ -155,7 +148,7 @@ export default function Home() {
                           {col.links.map(link => (
                             <span key={link} 
                               onClick={() => { 
-                                // Specific routing for About links
+                                // Routing for About links
                                 if(link === 'Brief History') navigate('/about/history');
                                 if(link === 'Vision, Mission & Strategy') navigate('/about/vision-mission');
                                 if(link === 'Accreditation') navigate('/about/accreditation');
@@ -163,15 +156,22 @@ export default function Home() {
                                 if(link === 'Facts About MU') navigate('/about/facts');
                                 if(link === 'Deans, Chairs & Directors') navigate('/about/deans');
                                 if(link === 'Administration') navigate('/about/administration');
-                            
-                          
                                 if(link === 'Board of Trustees') navigate('/about/trustees');
                                 if(link === 'VC, Pro-VC & Treasurer') navigate('/about/leaders');
                                 if(link === 'Academic Council') navigate('/about/academic-council');
                                 
-                                // Specific routing for Academic links
+                                // Routing for Academic links
                                 if(link === 'Computer Science & Engineering (CSE)') navigate('/academics/cse');
-                                
+                                if(link === 'Data Science') navigate('/academics/data-science');
+                                if(link === 'Software Engineering') navigate('/academics/software-engineering');
+                                if(link === 'Business Administration (BBA)') navigate('/academics/bba');
+                                if(link === 'Law') navigate('/academics/law');
+                                if(link === 'English') navigate('/academics/english');
+                                if(link === 'Economics') navigate('/academics/economics');
+                                if(link === 'Business Administration (BA)') navigate('/academics/ba');
+
+                                // (Add logic for BA and Economics here when you create those files!)
+
                                 setHoveredMenu(null); 
                               }}
                               style={{ color: 'rgba(255,255,255,0.65)', fontSize: '14px', cursor: 'pointer', transition: 'all 0.2s', display: 'flex', alignItems: 'center', gap: '8px' }}
@@ -191,7 +191,6 @@ export default function Home() {
           ))}
         </div>
 
-        {/* Portal button */}
         <button onClick={() => navigate('/login')} style={{
           padding: '10px 24px', borderRadius: '6px',
           fontSize: '13px', fontWeight: '700',
@@ -208,9 +207,6 @@ export default function Home() {
         </button>
       </nav>
 
-      {/* ═══════════════════════════════════════════════════════
-          HERO
-      ═══════════════════════════════════════════════════════ */}
       <div ref={heroRef} style={{ 
         minHeight: 'calc(100vh - 68px)', 
         display: 'flex', 
@@ -306,7 +302,7 @@ export default function Home() {
           </p>
 
           {[
-            { val: '6,000+',  label: 'Active Students',      sub: 'Across all departments' },
+            { val: '6,000+',  label: 'Active Students',     sub: 'Across all departments' },
             { val: '250+',    label: 'Expert Faculty',         sub: 'PhD holders & practitioners' },
             { val: '22+',     label: 'Years of Excellence',    sub: 'Established 2003' },
             { val: '10,000+', label: 'Global Alumni',          sub: 'In 30+ countries' },
@@ -340,9 +336,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ═══════════════════════════════════════════════════════
-          MARQUEE STRIP
-      ═══════════════════════════════════════════════════════ */}
       <div style={{ background: RED, padding: '14px 0', overflow: 'hidden', whiteSpace: 'nowrap' }}>
         <div style={{ display: 'inline-block', animation: 'marquee 30s linear infinite' }}>
           {['Permanently Chartered 2024', 'British Council Partner', 'Cambridge English Partner', 'UGC Approved', '6,000+ Students', '10,000+ Alumni', 'Bateshwar Campus, Sylhet'].map((t, i) => (
@@ -359,9 +352,6 @@ export default function Home() {
         <style>{`@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }`}</style>
       </div>
 
-      {/* ═══════════════════════════════════════════════════════
-          STORY / MISSION SECTION
-      ═══════════════════════════════════════════════════════ */}
       <div style={{ padding: '120px 60px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '100px', maxWidth: '1300px', margin: '0 auto', alignItems: 'center' }}>
         <div>
           <SectionLabel num="01" text="Our Mission" />
@@ -410,9 +400,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ═══════════════════════════════════════════════════════
-          DEPARTMENTS
-      ═══════════════════════════════════════════════════════ */}
       <div style={{ background: '#f7f8fc', padding: '100px 60px', borderTop: '1px solid #eee' }}>
         <div style={{ maxWidth: '1300px', margin: '0 auto' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '52px' }}>
@@ -480,9 +467,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ═══════════════════════════════════════════════════════
-          NOTICES
-      ═══════════════════════════════════════════════════════ */}
       <div style={{ padding: '100px 60px', maxWidth: '1300px', margin: '0 auto' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '52px' }}>
           <div>
@@ -509,7 +493,7 @@ export default function Home() {
             { title: 'New Data Science Program — Applications Open',  category: 'academic', published_at: '2026-03-01' },
           ]).slice(0, 4).map((n, i) => {
             const catStyle = {
-              exam:     { color: RED,   bg: '#fff0f0', label: 'Exam' },
+              exam:     { color: RED,  bg: '#fff0f0', label: 'Exam' },
               academic: { color: NAVY,  bg: '#f0f3ff', label: 'Academic' },
               event:    { color: '#16a34a', bg: '#f0fdf4', label: 'Event' },
               general:  { color: GREY,  bg: '#f5f5f5', label: 'General' },
@@ -541,9 +525,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ═══════════════════════════════════════════════════════
-          ALUMNI STRIP
-      ═══════════════════════════════════════════════════════ */}
       <div style={{ borderTop: '1px solid #eee', borderBottom: '1px solid #eee', padding: '40px 60px', background: '#fafbfc' }}>
         <div style={{ maxWidth: '1300px', margin: '0 auto', display: 'flex', alignItems: 'center', gap: '48px' }}>
           <p style={{ margin: 0, fontSize: '11px', fontWeight: '700', color: GREY, letterSpacing: '2px', textTransform: 'uppercase', flexShrink: 0 }}>
@@ -559,9 +540,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ═══════════════════════════════════════════════════════
-          CTA SECTION
-      ═══════════════════════════════════════════════════════ */}
       <div style={{ padding: '100px 60px', background: '#fff' }}>
         <div style={{
           maxWidth: '1300px', margin: '0 auto',
@@ -601,9 +579,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ═══════════════════════════════════════════════════════
-          FOOTER
-      ═══════════════════════════════════════════════════════ */}
       <footer style={{ background: '#0a1230', padding: '72px 60px 40px', borderTop: `4px solid ${RED}` }}>
         <div style={{ maxWidth: '1300px', margin: '0 auto' }}>
           <div style={{ display: 'grid', gridTemplateColumns: '2.5fr 1fr 1fr 1fr', gap: '60px', marginBottom: '60px' }}>
