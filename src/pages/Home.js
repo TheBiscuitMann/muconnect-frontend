@@ -23,7 +23,7 @@ const ACADEMIC_MENU = [
   { title: 'School of Law', links: ['Law'] }
 ];
 
-// ✨ NEW: Admission Menu Data
+// ✨ BROUGHT BACK: Admission Menu Data
 const ADMISSION_LINKS = [
   "Apply Now", "Undergraduate Admission", "Postgraduate Admission", "Joint PhD Admission",
   "International Applicants", "Scholarships and Financial Aid", "Waiver for Postgraduate Programs",
@@ -47,6 +47,10 @@ export default function Home() {
   const [activeNav, setActiveNav] = useState(null);
   const [hoveredMenu, setHoveredMenu] = useState(null); 
   const [showVideo, setShowVideo] = useState(false);
+  
+  // State to track which programs to show (Undergrad vs Grad)
+  const [programType, setProgramType] = useState('undergrad');
+
   const heroRef = useRef(null);
 
   useEffect(() => {
@@ -57,6 +61,27 @@ export default function Home() {
   }, []);
 
   const NAV_LINKS = ['About', 'Academics', 'Admission', 'Research', 'Campus Life', 'Notices', 'Contact'];
+
+  // Data Arrays for the Dynamic Toggling
+  const undergradPrograms = [
+    { name: 'Computer Science & Engineering', path: '/academics/cse', sub: 'Science & Technology' },
+    { name: 'Software Engineering', path: '/academics/software-engineering', sub: 'Science & Technology' },
+    { name: 'Data Science', path: '/academics/data-science', sub: 'Science & Technology' },
+    { name: 'Business Administration (BBA)', path: '/academics/bba', sub: 'Business & Economics' },
+    { name: 'English', path: '/academics/english', sub: 'Humanities' },
+    { name: 'Law & Justice', path: '/academics/law', sub: 'School of Law' }
+  ];
+
+  const gradPrograms = [
+    { name: 'MBA (Regular)', path: '/academics/bba', sub: 'Graduate Business Studies' },
+    { name: 'MBA (General)', path: '/academics/bba', sub: 'Graduate Business Studies' },
+    { name: 'MSc. in MIS', path: '/academics/cse', sub: 'Management Information Systems' },
+    { name: 'M.A. in English (Prelim & Final)', path: '/academics/english', sub: 'Department of English' },
+    { name: 'M.A. in English (Final)', path: '/academics/english', sub: 'Department of English' },
+    { name: 'MSS in Economics', path: '/academics/economics', sub: 'School of Social Science' },
+    { name: 'LL.M. (1 Year)', path: '/academics/law', sub: 'School of Law' },
+    { name: 'LL.M. (2 Year)', path: '/academics/law', sub: 'School of Law' }
+  ];
 
   return (
     <div style={{ fontFamily: "'Segoe UI', system-ui, sans-serif", color: NAVY, background: '#fff', overflowX: 'hidden' }}>
@@ -84,14 +109,11 @@ export default function Home() {
                 onClick={() => { 
                   setActiveNav(l); 
                   if (l === 'Notices') { navigate('/notices'); setHoveredMenu(null); }
-                  // ✨ ADD THIS NEW LINE RIGHT HERE:
                   else if (l === 'Research') { navigate('/academics/cse/research'); setHoveredMenu(null); } 
                   else if (l === 'Campus Life') { navigate('/campus-life'); setHoveredMenu(null); }
                   else if (l === 'Contact') { navigate('/contact'); setHoveredMenu(null); }
-
                   else if (l === 'About' || l === 'Academics' || l === 'Admission') { setHoveredMenu(hoveredMenu === l ? null : l); }
                   else { setHoveredMenu(null); }
-                  
                 }}
                 style={{
                   background: 'none', border: 'none', cursor: 'pointer', padding: '6px 14px', borderRadius: '6px',
@@ -142,6 +164,8 @@ export default function Home() {
                                 if(link === 'Business Administration (BBA)') navigate('/academics/bba');
                                 if(link === 'Law') navigate('/academics/law');
                                 if(link === 'English') navigate('/academics/english');
+                                if(link === 'Economics') navigate('/academics/economics');
+                                if(link === 'Business Administration (BA)') navigate('/academics/ba');
                                 setHoveredMenu(null); 
                               }}
                               style={{ color: 'rgba(255,255,255,0.65)', fontSize: '14px', cursor: 'pointer', transition: 'all 0.2s', display: 'flex', alignItems: 'center', gap: '8px' }}
@@ -158,7 +182,7 @@ export default function Home() {
                 </div>
               )}
 
-              {/* ✨ NEW: SPLIT-SCREEN ADMISSION DROPDOWN */}
+              {/* ✨ BROUGHT BACK: SPLIT-SCREEN ADMISSION DROPDOWN */}
               {l === 'Admission' && hoveredMenu === 'Admission' && (
                 <div style={{
                   position: 'absolute', top: '85px', left: 0, right: 0, background: '#fff',
@@ -172,7 +196,6 @@ export default function Home() {
                       {ADMISSION_LINKS.map(link => (
                         <span key={link} 
                           onClick={() => {
-                            // Automatically formats the string (e.g. "Apply Now" -> "apply-now") and routes it!
                             const formattedPath = link.toLowerCase().replace(/[^a-z0-9]+/g, '-');
                             navigate(`/admission/${formattedPath}`);
                             setHoveredMenu(null);
@@ -190,13 +213,11 @@ export default function Home() {
                     <div style={{ 
                       flex: '0.8', position: 'relative', overflow: 'hidden',
                       backgroundImage: `url(${realBanner})`, backgroundSize: 'cover', backgroundPosition: 'center',
-                      borderBottomLeftRadius: '40px' // Sleek design touch
+                      borderBottomLeftRadius: '40px' 
                     }}>
-                      {/* Deep Navy Overlay */}
                       <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, rgba(30, 42, 110, 0.95), rgba(30, 42, 110, 0.8))' }} />
                       
                       <div style={{ position: 'relative', zIndex: 1, padding: '60px', display: 'flex', flexDirection: 'column', justifyContent: 'center', height: '100%', gap: '60px' }}>
-                        
                         <div style={{ cursor: 'pointer', transition: 'transform 0.3s' }}
                              onClick={() => { navigate('/admission/undergraduate-admission'); setHoveredMenu(null); }}
                              onMouseOver={e => e.currentTarget.style.transform = 'translateX(10px)'}
@@ -204,7 +225,6 @@ export default function Home() {
                           <h3 style={{ color: '#fff', fontSize: '32px', fontWeight: '900', margin: 0 }}>Admissions</h3>
                           <p style={{ color: 'rgba(255,255,255,0.7)', margin: '8px 0 0', fontSize: '14px' }}>Start your journey today →</p>
                         </div>
-
                         <div style={{ cursor: 'pointer', transition: 'transform 0.3s' }}
                              onClick={() => { navigate('/admission/scholarships-and-financial-aid'); setHoveredMenu(null); }}
                              onMouseOver={e => e.currentTarget.style.transform = 'translateX(10px)'}
@@ -212,10 +232,8 @@ export default function Home() {
                           <h3 style={{ color: '#fff', fontSize: '32px', fontWeight: '900', margin: 0, lineHeight: 1.2 }}>Scholarships &<br/>Financial Aid</h3>
                           <p style={{ color: 'rgba(255,255,255,0.7)', margin: '8px 0 0', fontSize: '14px' }}>Explore funding options →</p>
                         </div>
-
                       </div>
                     </div>
-
                   </div>
                 </div>
               )}
@@ -321,9 +339,21 @@ export default function Home() {
           <h2 style={{ margin: '0 0 24px', fontSize: '52px', fontWeight: '900', lineHeight: 1.05, letterSpacing: '-2px', color: NAVY }}>Shaping the leaders of tomorrow — today.</h2>
           <p style={{ margin: '0 0 18px', fontSize: '17px', color: '#555', lineHeight: 1.85 }}>Since 2003, we've been building something rare: a university that combines academic rigor with the spirit of real-world ambition. Every program, every lab, every mentorship is designed with one question in mind — what kind of world will our students build?</p>
           <p style={{ margin: '0 0 40px', fontSize: '17px', color: '#555', lineHeight: 1.85 }}>Our graduates work at Microsoft, Google, and Amazon. They lead nonprofits, research labs, courtrooms, and startups. They're not just employed — they're impactful.</p>
-          <button style={{ padding: '13px 30px', borderRadius: '6px', fontSize: '13px', fontWeight: '700', cursor: 'pointer', border: `2px solid ${NAVY}`, background: 'transparent', color: NAVY, letterSpacing: '0.5px', transition: 'all 0.25s' }}
-            onMouseOver={e => { e.currentTarget.style.background = NAVY; e.currentTarget.style.color = '#fff'; }} onMouseOut={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = NAVY; }}
-          >Our Full Story →</button>
+          <button 
+  onClick={() => navigate('/our-legacy')} // ✨ This is the magic link
+  style={{ 
+    padding: '13px 30px', 
+    borderRadius: '6px', 
+    fontSize: '13px', 
+    fontWeight: '700', 
+    cursor: 'pointer', 
+    border: `2px solid ${NAVY}`, 
+    background: 'transparent', 
+    color: NAVY 
+  }}
+>
+  Our Full Story →
+</button>
         </div>
         <div style={{ position: 'relative' }}>
           <div style={{ position: 'absolute', left: '16px', top: 0, bottom: 0, width: '1px', background: '#eee' }} />
@@ -342,7 +372,7 @@ export default function Home() {
       </div>
 
       {/* ═══════════════════════════════════════════════════════
-          DEPARTMENTS 
+          DEPARTMENTS (IMMERSIVE "BRAC" STYLE DYNAMIC TOGGLE)
       ═══════════════════════════════════════════════════════ */}
       <div id="find-your-way" style={{ position: 'relative', overflow: 'hidden', padding: '120px 60px', color: '#fff', borderTop: '1px solid #eee' }}>
         <div style={{ position: 'absolute', top: '-10%', left: '-10%', width: '120%', height: '120%', backgroundImage: `url(${realBanner})`, backgroundSize: 'cover', backgroundPosition: 'center', animation: 'slowZoom 25s linear infinite alternate', zIndex: 0 }} />
@@ -350,27 +380,36 @@ export default function Home() {
         <div style={{ position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)', backgroundSize: '25% 100%', zIndex: 1 }} />
         <style>{`
           @keyframes slowZoom { 0% { transform: scale(1); } 100% { transform: scale(1.1); } }
-          .dept-link { font-size: 24px; font-weight: 700; color: #fff; cursor: pointer; transition: all 0.3s ease; display: block; position: relative; padding-left: 0; }
+          .dept-link { font-size: 22px; font-weight: 700; color: #fff; cursor: pointer; transition: all 0.3s ease; display: block; position: relative; padding-left: 0; line-height: 1.3; }
           .dept-link:hover { color: #4ade80; transform: translateX(10px); }
-          .dept-link::before { content: '→'; position: absolute; left: -25px; opacity: 0; transition: all 0.3s ease; color: #4ade80; }
+          .dept-link::before { content: '→'; position: absolute; left: -25px; top: 0; opacity: 0; transition: all 0.3s ease; color: #4ade80; }
           .dept-link:hover::before { left: -30px; opacity: 1; }
           .pill-btn { padding: 14px 28px; border-radius: 40px; border: 1px solid rgba(255,255,255,0.4); background: transparent; color: #fff; font-size: 15px; font-weight: 700; cursor: pointer; transition: all 0.3s ease; width: fit-content; }
-          .pill-btn:hover { background: #fff; color: #1e2a6e; border-color: #fff; transform: translateY(-2px); }
+          .pill-btn:hover { background: rgba(255,255,255,0.1); transform: translateY(-2px); }
+          .pill-btn.active { background: #fff; color: #1e2a6e; border-color: #fff; }
+          .pill-btn.active:hover { background: #fff; }
+          @keyframes slideFadeIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
         `}</style>
         <div style={{ position: 'relative', zIndex: 2, maxWidth: '1400px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '100px', alignItems: 'center' }}>
+          
           <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
             <h2 style={{ margin: 0, fontSize: '56px', fontWeight: '900', letterSpacing: '-2px', lineHeight: 1.1 }}>Find Your Way</h2>
-            <p style={{ margin: '0 0 24px', fontSize: '17px', lineHeight: 1.7, color: 'rgba(255,255,255,0.8)' }}>Explore the countless paths and opportunities that Metropolitan University has to offer to shape your future.</p>
+            <p style={{ margin: '0 0 24px', fontSize: '17px', lineHeight: 1.7, color: 'rgba(255,255,255,0.8)' }}>Explore the comprehensive paths and opportunities that Metropolitan University has to offer to shape your future.</p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-              <button className="pill-btn" onClick={() => navigate('/academics/cse')}>Undergraduate Programs</button>
-              <button className="pill-btn" onClick={() => navigate('/academics/cse/research')}>Graduate Programs</button>
+              <button className={`pill-btn ${programType === 'undergrad' ? 'active' : ''}`} onClick={() => setProgramType('undergrad')}>Undergraduate Programs</button>
+              <button className={`pill-btn ${programType === 'grad' ? 'active' : ''}`} onClick={() => setProgramType('grad')}>Graduate Programs</button>
             </div>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '80px 40px' }}>
-            {[ { name: 'Computer Science & Engineering', path: '/academics/cse' }, { name: 'Software Engineering', path: '/academics/software-engineering' }, { name: 'Data Science', path: '/academics/data-science' }, { name: 'Business Administration (BBA)', path: '/academics/bba' }, { name: 'English', path: '/academics/english' }, { name: 'Law & Justice', path: '/academics/law' }].map((dept, i) => (
-              <div key={i} onClick={() => navigate(dept.path)} className="dept-link">{dept.name}</div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '60px 40px' }}>
+            {(programType === 'undergrad' ? undergradPrograms : gradPrograms).map((dept, i) => (
+              <div key={i + programType} onClick={() => navigate(dept.path)} className="dept-link" style={{ animation: `slideFadeIn 0.4s ease-out forwards ${i * 0.05}s`, opacity: 0 }}>
+                {dept.name}
+                {dept.sub && <span style={{ display: 'block', fontSize: '11px', fontWeight: '600', color: 'rgba(255,255,255,0.6)', marginTop: '6px', letterSpacing: '1px', textTransform: 'uppercase' }}>{dept.sub}</span>}
+              </div>
             ))}
           </div>
+
         </div>
       </div>
 
@@ -389,6 +428,16 @@ export default function Home() {
               </div>
             );
           })}
+        </div>
+      </div>
+
+      <div style={{ borderTop: '1px solid #eee', borderBottom: '1px solid #eee', padding: '40px 60px', background: '#fafbfc' }}>
+        <div style={{ maxWidth: '1300px', margin: '0 auto', display: 'flex', alignItems: 'center', gap: '48px' }}>
+          <p style={{ margin: 0, fontSize: '11px', fontWeight: '700', color: GREY, letterSpacing: '2px', textTransform: 'uppercase', flexShrink: 0 }}>Alumni at</p>
+          <div style={{ width: '1px', height: '24px', background: '#eee', flexShrink: 0 }} />
+          {['Microsoft', 'Google', 'Amazon', 'Agoda', 'Genesys', 'Incepta'].map(c => (
+            <span key={c} style={{ fontSize: '16px', fontWeight: '800', color: `${NAVY}50`, letterSpacing: '-0.5px', flexShrink: 0, transition: 'color 0.2s', cursor: 'default' }} onMouseOver={e => e.target.style.color = NAVY} onMouseOut={e => e.target.style.color = `${NAVY}50`}>{c}</span>
+          ))}
         </div>
       </div>
 

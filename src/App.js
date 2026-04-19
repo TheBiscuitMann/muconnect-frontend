@@ -3,7 +3,10 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 // Public pages
 import Home                     from './pages/Home';
-import Notices                  from './pages/Notices';
+
+// ✨ CHANGED: Now imports your correctly named Noticess file
+import Noticess                 from './pages/Noticess';
+
 import BriefHistory             from './pages/BriefHistory';
 import VisionMission            from './pages/VisionMission';
 import Accreditation            from './pages/Accreditation';
@@ -23,18 +26,19 @@ import BscCSE                   from './pages/BscCSE';
 import CSEResearch              from './pages/CSEResearch';
 import LawDept                  from './pages/LawDept';
 import DataScience              from './pages/DataScience';
-
 import English                  from './pages/EnglishDept'; 
 import SoftwareEngineering      from './pages/SoftwareEngineering';
 import BBA                      from './pages/BBA';
 import Economics                from './pages/Economics';
 import BA                       from './pages/BA';
 
-// Admission Master Page
+// Admission & Campus
 import AdmissionPage            from './pages/AdmissionPage';
-import CampusLife from './pages/CampusLife';
-import Clubs from './pages/Clubs';
-import Contact from './pages/Contact';
+import CampusLife               from './pages/CampusLife';
+import Clubs                    from './pages/Clubs';
+import Contact                  from './pages/Contact';
+import UniversityLegacy from './pages/UniversityLegacy';
+
 // Auth
 import Login from './pages/Login';
 
@@ -60,7 +64,6 @@ import AdminStudents   from './pages/AdminStudents';
 import AdminFaculty    from './pages/AdminFaculty';
 import AdminNotices    from './pages/AdminNotices';
 
-// Private route guard
 const PrivateRoute = ({ children, role }) => {
   const token = localStorage.getItem('token');
   const user  = JSON.parse(localStorage.getItem('user') || '{}');
@@ -76,14 +79,15 @@ function App() {
 
         {/* Public website */}
         <Route path="/"                                element={<Home />} />
-        <Route path="/notices"                         element={<Notices />} />
+        
+        {/* ✨ CHANGED: The URL stays "/notices", but it loads <Noticess /> */}
+        <Route path="/notices"                         element={<Noticess />} />
+
         <Route path="/about/history"                   element={<BriefHistory />} />
         <Route path="/about/vision-mission"            element={<VisionMission />} />
         <Route path="/about/accreditation"             element={<Accreditation />} />
         <Route path="/about/international-recognition" element={<InternationalRecognition />} />
         <Route path="/about/facts"                     element={<FactsAbout />} />
-        
-        {/* Governance Routes */}
         <Route path="/about/trustees"                  element={<BoardOfTrustees />} />
         <Route path="/about/leaders"                   element={<ExecutiveLeaders />} />
         <Route path="/about/deans"                     element={<Deans />} />
@@ -102,11 +106,12 @@ function App() {
         <Route path="/academics/economics"             element={<Economics/>} />
         <Route path="/academics/ba"                    element={<BA />} />
         
-        {/* Admission Route */}
+        {/* Admission & Campus Routes */}
         <Route path="/admission/:topic"                element={<AdmissionPage />} />
-        <Route path="/campus-life" element={<CampusLife />} />
-        <Route path="/clubs" element={<Clubs />} />
-        <Route path="/contact" element={<Contact />} />
+        <Route path="/campus-life"                     element={<CampusLife />} />
+        <Route path="/clubs"                           element={<Clubs />} />
+        <Route path="/contact"                         element={<Contact />} />
+        <Route path="/our-legacy" element={<UniversityLegacy />} />
 
         {/* Auth */}
         <Route path="/login" element={<Login />} />
