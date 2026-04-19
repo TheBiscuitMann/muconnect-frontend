@@ -8,7 +8,7 @@ const NAVY = '#1e2a6e';
 const CLUB_DATA = [
   { name: 'CSE Society', emoji: '💻', color: '#0288D1', desc: 'The ultimate hub for tech enthusiasts, competitive programmers, and future software engineers.' },
   { name: 'Robotics Club', emoji: '🤖', color: '#7B1FA2', desc: 'Design, build, and program cutting-edge robotic systems for national and international competitions.' },
-  { name: 'MUGAS', emoji: '🎮', color: '#E65100', desc: 'Metropolitan University Gaming & Anime Society. Your home for esports, pop culture, and tournaments.' },
+  { name: 'MUGAS', emoji: '🎮', color: '#E65100', desc: 'Metropolitan University Geography and Astronomy Society. Your home for esports, pop culture, and tournaments.' },
   { name: 'Sports Club', emoji: '⚽', color: '#2E7D32', desc: 'Train, compete, and represent MU in cricket, football, table tennis, and athletics.' },
   { name: 'Flames Music Club', emoji: '🎸', color: '#C62828', desc: 'Jam sessions, acoustic nights, and massive concert performances. Bring the rhythm to the campus.' },
   { name: 'Book Borrowing Club', emoji: '📚', color: '#00838F', desc: 'A quiet haven to share stories, discuss global literature, and expand your intellectual horizons.' },
