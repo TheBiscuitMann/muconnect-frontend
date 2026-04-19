@@ -180,15 +180,7 @@ export default function Login() {
         </div>
 
         {/* Top — logo */}
-        <div style={{ position: 'relative', zIndex: 2 }}>
-          <div style={{
-            background: '#fff', display: 'inline-block',
-            padding: '8px 16px', borderRadius: '10px',
-            marginBottom: '0',
-          }}>
-            <img src={muLogo} alt="MU" style={{ height: '36px', objectFit: 'contain', display: 'block' }} />
-          </div>
-        </div>
+        
 
         {/* Middle — headline */}
         <div style={{ position: 'relative', zIndex: 2 }}>

@@ -251,7 +251,7 @@ export default function Home() {
           onMouseOut={e => e.currentTarget.style.background = NAVY}
         >
           <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#4ade80', display: 'inline-block' }} />
-          myMU Portal 
+          MU Connect 
         </button>
       </nav>
 
