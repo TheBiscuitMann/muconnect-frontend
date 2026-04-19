@@ -8,6 +8,7 @@ const NAVY = '#1e2a6e';
 const RED  = '#e31e24';
 const GREY = '#6b7280';
 
+// ── Mega Menu Data Structures ─────────────────────────────────────
 const ABOUT_MENU = [
   {
     title: 'ABOUT MU',
@@ -169,8 +170,6 @@ export default function Home() {
                                 if(link === 'English') navigate('/academics/english');
                                 if(link === 'Economics') navigate('/academics/economics');
                                 if(link === 'Business Administration (BA)') navigate('/academics/ba');
-
-                                // (Add logic for BA and Economics here when you create those files!)
 
                                 setHoveredMenu(null); 
                               }}
@@ -400,70 +399,103 @@ export default function Home() {
         </div>
       </div>
 
-      <div style={{ background: '#f7f8fc', padding: '100px 60px', borderTop: '1px solid #eee' }}>
-        <div style={{ maxWidth: '1300px', margin: '0 auto' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '52px' }}>
-            <div>
-              <SectionLabel num="02" text="Academics" />
-              <h2 style={{ margin: 0, fontSize: '48px', fontWeight: '900', letterSpacing: '-2px', color: NAVY, lineHeight: 1.05 }}>
-                Find your field.
-              </h2>
+      {/* ═══════════════════════════════════════════════════════
+          DEPARTMENTS (IMMERSIVE "BRAC" STYLE REDESIGN)
+      ═══════════════════════════════════════════════════════ */}
+      <div style={{ position: 'relative', overflow: 'hidden', padding: '120px 60px', color: '#fff', borderTop: '1px solid #eee' }}>
+        
+        {/* 1. The Moving Background Picture */}
+        {/* We use your realBanner here, but you can swap the URL for a cool picture of students or a campus building later! */}
+        <div style={{
+          position: 'absolute', top: '-10%', left: '-10%', width: '120%', height: '120%',
+          backgroundImage: `url(${realBanner})`, 
+          backgroundSize: 'cover', backgroundPosition: 'center',
+          animation: 'slowZoom 25s linear infinite alternate', zIndex: 0
+        }} />
+        
+        {/* 2. The Dark Navy Gradient Overlay & Subtle Grid Lines */}
+        <div style={{ 
+          position: 'absolute', inset: 0, 
+          background: 'linear-gradient(135deg, rgba(30, 42, 110, 0.95) 0%, rgba(30, 42, 110, 0.75) 100%)', 
+          zIndex: 1 
+        }} />
+        <div style={{ 
+          position: 'absolute', inset: 0, 
+          backgroundImage: 'linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)',
+          backgroundSize: '25% 100%', // Creates those subtle vertical lines from your reference
+          zIndex: 1 
+        }} />
+
+        {/* 3. Custom Styles for this section */}
+        <style>{`
+          @keyframes slowZoom {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+          }
+          .dept-link {
+            font-size: 24px; font-weight: 700; color: #fff; cursor: pointer;
+            transition: all 0.3s ease; display: block; position: relative;
+            padding-left: 0;
+          }
+          .dept-link:hover {
+            color: #4ade80; /* Glows green on hover */
+            transform: translateX(10px);
+          }
+          .dept-link::before {
+            content: '→'; position: absolute; left: -25px; opacity: 0;
+            transition: all 0.3s ease; color: #4ade80;
+          }
+          .dept-link:hover::before {
+            left: -30px; opacity: 1;
+          }
+          .pill-btn {
+            padding: 14px 28px; border-radius: 40px; border: 1px solid rgba(255,255,255,0.4);
+            background: transparent; color: #fff; font-size: 15px; font-weight: 700;
+            cursor: pointer; transition: all 0.3s ease; width: fit-content;
+          }
+          .pill-btn:hover {
+            background: #fff; color: #1e2a6e; border-color: #fff;
+            transform: translateY(-2px);
+          }
+        `}</style>
+
+        {/* 4. Main Content Container */}
+        <div style={{ position: 'relative', zIndex: 2, maxWidth: '1400px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '100px', alignItems: 'center' }}>
+          
+          {/* Left Side: Intro & Buttons */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+            <h2 style={{ margin: 0, fontSize: '56px', fontWeight: '900', letterSpacing: '-2px', lineHeight: 1.1 }}>
+              Find Your Way
+            </h2>
+            <p style={{ margin: '0 0 24px', fontSize: '17px', lineHeight: 1.7, color: 'rgba(255,255,255,0.8)' }}>
+              Explore the countless paths and opportunities that Metropolitan University has to offer to shape your future.
+            </p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <button className="pill-btn">Undergraduate Programs</button>
+              <button className="pill-btn">Graduate Programs</button>
             </div>
-            <button style={{
-              padding: '10px 22px', borderRadius: '6px', fontSize: '13px',
-              fontWeight: '600', cursor: 'pointer',
-              border: `1.5px solid ${NAVY}`, background: 'transparent', color: NAVY,
-              transition: 'all 0.25s',
-            }}
-              onMouseOver={e => { e.currentTarget.style.background = NAVY; e.currentTarget.style.color = '#fff'; }}
-              onMouseOut={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = NAVY; }}
-            >All Departments →</button>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' }}>
+          {/* Right Side: Floating Clickable Text Links */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '80px 40px' }}>
             {[
-              { code: 'CSE',  name: 'Computer Science & Engineering', school: 'Science & Technology', students: '2,400+', color: NAVY,  tag: 'Most Popular' },
-              { code: 'SE',   name: 'Software Engineering',           school: 'Science & Technology', students: '800+',   color: RED,   tag: 'Growing Fast' },
-              { code: 'BBA',  name: 'Business Administration',        school: 'Business & Economics', students: '1,800+', color: NAVY,  tag: null },
-              { code: 'LAW',  name: 'Law & Justice',                  school: 'School of Law',        students: '600+',   color: RED,   tag: null },
-              { code: 'ENG',  name: 'English',                        school: 'Humanities',           students: '400+',   color: GREY,  tag: null },
-              { code: 'DS',   name: 'Data Science',                   school: 'Science & Technology', students: '200+',   color: NAVY,  tag: 'New 2026' },
-            ].map((d, i) => (
-              <div key={i} 
-                onClick={() => { if(d.code === 'CSE') navigate('/academics/cse'); }} 
-                style={{
-                background: '#fff', borderRadius: '12px', padding: '28px',
-                border: '1px solid #eee', cursor: 'pointer',
-                transition: 'all 0.25s', position: 'relative', overflow: 'hidden',
-              }}
-                onMouseOver={e => { e.currentTarget.style.borderColor = d.color; e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 16px 40px rgba(0,0,0,0.08)'; }}
-                onMouseOut={e => { e.currentTarget.style.borderColor = '#eee'; e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}
+              { name: 'Computer Science & Engineering', path: '/academics/cse' },
+              { name: 'Software Engineering', path: '/academics/software-engineering' },
+              { name: 'Data Science', path: '/academics/data-science' },
+              { name: 'Business Administration (BBA)', path: '/academics/bba' },
+              { name: 'English', path: '/academics/english' },
+              { name: 'Law & Justice', path: '/academics/law' }
+            ].map((dept, i) => (
+              <div 
+                key={i} 
+                onClick={() => navigate(dept.path)} 
+                className="dept-link"
               >
-                {d.tag && (
-                  <div style={{
-                    position: 'absolute', top: '16px', right: '16px',
-                    background: d.color === RED ? '#fff0f0' : d.color === GREY ? '#f5f5f5' : '#f0f3ff',
-                    color: d.color, fontSize: '10px', fontWeight: '800',
-                    padding: '3px 10px', borderRadius: '20px', letterSpacing: '0.5px',
-                  }}>{d.tag}</div>
-                )}
-                <div style={{ marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <div style={{
-                    width: '44px', height: '44px', borderRadius: '10px',
-                    background: d.color === RED ? '#fff0f0' : d.color === GREY ? '#f5f5f5' : '#f0f3ff',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    fontSize: '11px', fontWeight: '900', color: d.color, letterSpacing: '0.5px',
-                  }}>{d.code}</div>
-                </div>
-                <h3 style={{ margin: '0 0 6px', fontSize: '15px', fontWeight: '700', color: NAVY, lineHeight: 1.3 }}>{d.name}</h3>
-                <p style={{ margin: '0 0 20px', fontSize: '12px', color: GREY }}>{d.school}</p>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '16px', borderTop: `1px solid #f0f0f0` }}>
-                  <span style={{ fontSize: '13px', fontWeight: '700', color: d.color }}>{d.students}</span>
-                  <span style={{ fontSize: '12px', color: GREY }}>students enrolled</span>
-                </div>
+                {dept.name}
               </div>
             ))}
           </div>
+
         </div>
       </div>
 
