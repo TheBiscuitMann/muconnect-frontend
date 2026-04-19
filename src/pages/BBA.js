@@ -13,7 +13,7 @@ const DEPT_NAME = 'Business Administration (BBA)';
 const SCHOOL_NAME = 'School of Business & Economics';
 
 const deptHead = {
-  name: "Dr. [Head's Name]",
+  name: "Md. Masud Rana",
   title: "Head, Business Administration",
   message: "Welcome to the BBA program. We cultivate visionary leaders and disruptive entrepreneurs. Through case studies, industry collaborations, and rigorous financial analysis, we empower our students to navigate and dominate the complex global business landscape.",
 };

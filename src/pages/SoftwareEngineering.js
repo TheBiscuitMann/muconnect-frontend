@@ -12,7 +12,7 @@ const DEPT_NAME = 'Software Engineering';
 const SCHOOL_NAME = 'School of Science & Technology';
 
 const deptHead = {
-  name: "Dr. [Head's Name]",
+  name: "Fuad Ahmed",
   title: "Head, Department of Software Engineering",
   message: "Welcome to Software Engineering. We build the architects of tomorrow's digital infrastructure. Our intensive, project-based curriculum ensures students master agile development, system architecture, and cloud deployment, preparing them seamlessly for the global tech industry.",
 };

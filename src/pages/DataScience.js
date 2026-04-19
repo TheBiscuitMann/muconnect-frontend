@@ -7,7 +7,7 @@ const NAVY = '#1e2a6e';
 const GREY = '#6b7280';
 
 // ── DATA PACK FOR DATA SCIENCE ──
-const DEPT_COLOR = '#00838F'; // Cyber Teal for Data Science
+const DEPT_COLOR = '#00838F';
 const DEPT_NAME = 'Data Science';
 const SCHOOL_NAME = 'School of Science & Technology';
 

@@ -12,7 +12,7 @@ const DEPT_NAME = 'Economics';
 const SCHOOL_NAME = 'School of Business & Economics';
 
 const deptHead = {
-  name: "Dr. [Head's Name]",
+  name: "Mr. Md. Gulam Mokta Dhir",
   title: "Head, Department of Economics",
   message: "Welcome to the Department of Economics. We analyze the forces that shape wealth, poverty, and global markets. Our students gain rigorous quantitative skills and economic intuition, preparing them to guide policy, banking, and strategic development on a national scale.",
 };

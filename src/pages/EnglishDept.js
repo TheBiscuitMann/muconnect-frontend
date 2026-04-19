@@ -12,7 +12,7 @@ const DEPT_NAME = 'English';
 const SCHOOL_NAME = 'School of Humanities';
 
 const deptHead = {
-  name: "Dr. [Head's Name]",
+  name: "Anik Biswas",
   title: "Head, Department of English",
   message: "Welcome to the Department of English. We believe in the profound power of literature and language to shape society. Our students engage deeply with global narratives, critical theory, and linguistic structures, emerging as articulate communicators and creative thinkers ready for a diverse range of careers.",
 };

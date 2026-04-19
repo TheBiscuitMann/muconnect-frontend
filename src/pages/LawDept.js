@@ -14,7 +14,7 @@ const LAW_COLOR = '#900C3F';
 
 // ── DEPARTMENT DATA ──
 const lawHead = {
-  name: "Dr. [Head's Name]",
+  name: "Professor Dr. M. Rabiul Hossain",
   title: "Head, Department of Law",
   // img: headImage, // Uncomment when you have the picture!
   message: "Welcome to the Department of Law at Metropolitan University. Our mission is to cultivate brilliant legal minds capable of championing justice in a complex world. We offer a rigorous curriculum that blends profound theoretical understanding with intensive practical training, including moot court competitions and legal clinics.",
