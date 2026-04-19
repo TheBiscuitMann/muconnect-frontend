@@ -515,13 +515,51 @@ export default function Home() {
         </div>
       </div>
 
+      {/* ── ALUMNI LOGO STRIP ── */}
       <div style={{ borderTop: '1px solid #eee', borderBottom: '1px solid #eee', padding: '40px 60px', background: '#fafbfc' }}>
-        <div style={{ maxWidth: '1300px', margin: '0 auto', display: 'flex', alignItems: 'center', gap: '48px' }}>
-          <p style={{ margin: 0, fontSize: '11px', fontWeight: '700', color: GREY, letterSpacing: '2px', textTransform: 'uppercase', flexShrink: 0 }}>Alumni at</p>
-          <div style={{ width: '1px', height: '24px', background: '#eee', flexShrink: 0 }} />
-          {['Microsoft', 'Google', 'Amazon', 'Agoda', 'Genesys', 'Incepta'].map(c => (
-            <span key={c} style={{ fontSize: '16px', fontWeight: '800', color: `${NAVY}50`, letterSpacing: '-0.5px', flexShrink: 0, transition: 'color 0.2s', cursor: 'default' }} onMouseOver={e => e.target.style.color = NAVY} onMouseOut={e => e.target.style.color = `${NAVY}50`}>{c}</span>
-          ))}
+        <div style={{ maxWidth: '1300px', margin: '0 auto', display: 'flex', alignItems: 'center', gap: '48px', flexWrap: 'wrap' }}>
+          
+          <p style={{ margin: 0, fontSize: '11px', fontWeight: '700', color: GREY, letterSpacing: '2px', textTransform: 'uppercase', flexShrink: 0 }}>
+            Alumni at
+          </p>
+          <div style={{ width: '1px', height: '24px', background: '#ddd', flexShrink: 0 }} />
+          
+          <div style={{ display: 'flex', alignItems: 'center', gap: '48px', flexWrap: 'wrap' }}>
+            {[
+              { name: 'Microsoft', url: 'https://upload.wikimedia.org/wikipedia/commons/9/96/Microsoft_logo_%282012%29.svg' },
+              { name: 'Google', url: 'https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg' },
+              { name: 'Amazon', url: 'https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg' },
+              { name: 'Agoda', url: 'https://upload.wikimedia.org/wikipedia/commons/f/f2/Agoda_transparent_logo.png' },
+              { name: 'Genesys', url: 'https://upload.wikimedia.org/wikipedia/commons/8/87/Genesys_logo.svg' }
+            ].map((company) => (
+              <img 
+                key={company.name}
+                src={company.url} 
+                alt={company.name}
+                title={`MU Alumni at ${company.name}`}
+                style={{ 
+                  height: '26px', // Keeps the logos uniformly sized
+                  objectFit: 'contain',
+                  filter: 'grayscale(100%) opacity(50%)', // Makes them premium grey
+                  transition: 'all 0.3s ease',
+                  cursor: 'pointer'
+                }}
+                onMouseOver={e => e.currentTarget.style.filter = 'grayscale(0%) opacity(100%)'}
+                onMouseOut={e => e.currentTarget.style.filter = 'grayscale(100%) opacity(50%)'}
+              />
+            ))}
+            
+            {/* If you don't have a logo for a company like Incepta, you can keep it as matching text like this! */}
+            <span 
+              style={{ fontSize: '18px', fontWeight: '800', color: NAVY, filter: 'grayscale(100%) opacity(50%)', transition: 'all 0.3s ease', cursor: 'pointer', letterSpacing: '-0.5px' }}
+              onMouseOver={e => e.currentTarget.style.filter = 'grayscale(0%) opacity(100%)'}
+              onMouseOut={e => e.currentTarget.style.filter = 'grayscale(100%) opacity(50%)'}
+            >
+              Incepta
+            </span>
+            
+          </div>
+
         </div>
       </div>
 
