@@ -47,6 +47,7 @@ const ACADEMIC_MENU = [
   }
 ];
 
+// ── Reusable section label ────────────────────────────────────────
 function SectionLabel({ num, text }) {
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '32px' }}>
@@ -67,6 +68,10 @@ export default function Home() {
   const [scrolled, setScrolled] = useState(false);
   const [activeNav, setActiveNav] = useState(null);
   const [hoveredMenu, setHoveredMenu] = useState(null); 
+  
+  // State to control the Cinematic Video Modal
+  const [showVideo, setShowVideo] = useState(false);
+  
   const heroRef = useRef(null);
 
   useEffect(() => {
@@ -81,9 +86,12 @@ export default function Home() {
   return (
     <div style={{ fontFamily: "'Segoe UI', system-ui, sans-serif", color: NAVY, background: '#fff', overflowX: 'hidden' }}>
 
+      {/* ═══════════════════════════════════════════════════════
+          NAVBAR 
+      ═══════════════════════════════════════════════════════ */}
       <nav style={{
         position: 'sticky', top: 0, zIndex: 999,
-        height: '85px', padding: '0 60px',
+        height: '85px', padding: '0 60px', 
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         background: scrolled ? '#fff' : '#fff',
         borderBottom: `1px solid ${scrolled ? '#eee' : '#f0f0f0'}`,
@@ -91,7 +99,7 @@ export default function Home() {
         transition: 'all 0.3s ease',
       }}>
         <div onClick={() => navigate('/')} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0' }}>
-          <img src={muLogo} alt="MU" style={{ height: '100px', objectFit: 'contain' }} />
+          <img src={muLogo} alt="MU" style={{ height: '65px', objectFit: 'contain' }} /> 
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '2px', height: '100%' }}>
@@ -113,7 +121,7 @@ export default function Home() {
                 style={{
                   background: 'none', border: 'none', cursor: 'pointer',
                   padding: '6px 14px', borderRadius: '6px',
-                  fontSize: '13px', fontWeight: '600',
+                  fontSize: '14px', fontWeight: '600',
                   color: activeNav === l || hoveredMenu === l ? RED : NAVY,
                   letterSpacing: '0.2px',
                   position: 'relative', transition: 'all 0.2s',
@@ -129,9 +137,10 @@ export default function Home() {
                 )}
               </button>
 
+              {/* ── THE MEGA MENU DROPDOWN ── */}
               {(l === 'About' || l === 'Academics') && hoveredMenu === l && (
                 <div style={{
-                  position: 'absolute', top: '68px', left: 0, right: 0,
+                  position: 'absolute', top: '85px', left: 0, right: 0, 
                   background: NAVY, padding: '40px 60px',
                   borderTop: '1px solid rgba(255,255,255,0.1)',
                   boxShadow: '0 12px 32px rgba(0,0,0,0.15)',
@@ -190,9 +199,10 @@ export default function Home() {
           ))}
         </div>
 
+        {/* Portal button */}
         <button onClick={() => navigate('/login')} style={{
           padding: '10px 24px', borderRadius: '6px',
-          fontSize: '13px', fontWeight: '700',
+          fontSize: '14px', fontWeight: '700',
           background: NAVY, color: '#fff', border: 'none',
           cursor: 'pointer', letterSpacing: '0.3px',
           transition: 'all 0.25s',
@@ -202,12 +212,15 @@ export default function Home() {
           onMouseOut={e => e.currentTarget.style.background = NAVY}
         >
           <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#4ade80', display: 'inline-block' }} />
-          MU Connect
+          myMU Portal 
         </button>
       </nav>
 
+      {/* ═══════════════════════════════════════════════════════
+          HERO
+      ═══════════════════════════════════════════════════════ */}
       <div ref={heroRef} style={{ 
-        minHeight: 'calc(100vh - 68px)', 
+        minHeight: 'calc(100vh - 85px)', 
         display: 'flex', 
         position: 'relative', 
         overflow: 'hidden',
@@ -253,25 +266,39 @@ export default function Home() {
             and students become global citizens since 2003.
           </p>
 
+          {/* ✨ HERO BUTTONS (NOW FULLY FUNCTIONAL) */}
           <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-            <button style={{
-              padding: '14px 32px', borderRadius: '6px', fontSize: '14px',
-              fontWeight: '700', cursor: 'pointer', border: 'none',
-              background: RED, color: '#fff', letterSpacing: '0.3px',
-              transition: 'all 0.2s', boxShadow: `0 8px 24px ${RED}40`,
-            }}
+            <button 
+              onClick={() => {
+                // Smooth scroll to the "Find Your Way" section
+                const section = document.getElementById('find-your-way');
+                if (section) section.scrollIntoView({ behavior: 'smooth' });
+              }}
+              style={{
+                padding: '14px 32px', borderRadius: '6px', fontSize: '14px',
+                fontWeight: '700', cursor: 'pointer', border: 'none',
+                background: RED, color: '#fff', letterSpacing: '0.3px',
+                transition: 'all 0.2s', boxShadow: `0 8px 24px ${RED}40`,
+              }}
               onMouseOver={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = `0 12px 28px ${RED}50`; }}
               onMouseOut={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = `0 8px 24px ${RED}40`; }}
-            >Explore Programs →</button>
-            <button style={{
-              padding: '14px 28px', borderRadius: '6px', fontSize: '14px',
-              fontWeight: '600', cursor: 'pointer',
-              background: 'transparent', color: NAVY,
-              border: `1.5px solid ${NAVY}30`, transition: 'all 0.2s',
-            }}
+            >
+              Explore Programs →
+            </button>
+            
+            <button 
+              onClick={() => setShowVideo(true)} // Opens the cinematic overlay
+              style={{
+                padding: '14px 28px', borderRadius: '6px', fontSize: '14px',
+                fontWeight: '600', cursor: 'pointer',
+                background: 'transparent', color: NAVY,
+                border: `1.5px solid ${NAVY}30`, transition: 'all 0.2s',
+              }}
               onMouseOver={e => { e.currentTarget.style.borderColor = NAVY; e.currentTarget.style.background = '#f5f7ff'; }}
               onMouseOut={e => { e.currentTarget.style.borderColor = `${NAVY}30`; e.currentTarget.style.background = 'transparent'; }}
-            >Watch Overview</button>
+            >
+              Watch Overview
+            </button>
           </div>
 
           <div style={{ marginTop: '64px', display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -335,6 +362,9 @@ export default function Home() {
         </div>
       </div>
 
+      {/* ═══════════════════════════════════════════════════════
+          MARQUEE STRIP
+      ═══════════════════════════════════════════════════════ */}
       <div style={{ background: RED, padding: '14px 0', overflow: 'hidden', whiteSpace: 'nowrap' }}>
         <div style={{ display: 'inline-block', animation: 'marquee 30s linear infinite' }}>
           {['Permanently Chartered 2024', 'British Council Partner', 'Cambridge English Partner', 'UGC Approved', '6,000+ Students', '10,000+ Alumni', 'Bateshwar Campus, Sylhet'].map((t, i) => (
@@ -400,12 +430,10 @@ export default function Home() {
       </div>
 
       {/* ═══════════════════════════════════════════════════════
-          DEPARTMENTS (IMMERSIVE "BRAC" STYLE REDESIGN)
+          DEPARTMENTS (IMMERSIVE "BRAC" STYLE)
       ═══════════════════════════════════════════════════════ */}
-      <div style={{ position: 'relative', overflow: 'hidden', padding: '120px 60px', color: '#fff', borderTop: '1px solid #eee' }}>
+      <div id="find-your-way" style={{ position: 'relative', overflow: 'hidden', padding: '120px 60px', color: '#fff', borderTop: '1px solid #eee' }}>
         
-        {/* 1. The Moving Background Picture */}
-        {/* We use your realBanner here, but you can swap the URL for a cool picture of students or a campus building later! */}
         <div style={{
           position: 'absolute', top: '-10%', left: '-10%', width: '120%', height: '120%',
           backgroundImage: `url(${realBanner})`, 
@@ -413,7 +441,6 @@ export default function Home() {
           animation: 'slowZoom 25s linear infinite alternate', zIndex: 0
         }} />
         
-        {/* 2. The Dark Navy Gradient Overlay & Subtle Grid Lines */}
         <div style={{ 
           position: 'absolute', inset: 0, 
           background: 'linear-gradient(135deg, rgba(30, 42, 110, 0.95) 0%, rgba(30, 42, 110, 0.75) 100%)', 
@@ -422,11 +449,10 @@ export default function Home() {
         <div style={{ 
           position: 'absolute', inset: 0, 
           backgroundImage: 'linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)',
-          backgroundSize: '25% 100%', // Creates those subtle vertical lines from your reference
+          backgroundSize: '25% 100%', 
           zIndex: 1 
         }} />
 
-        {/* 3. Custom Styles for this section */}
         <style>{`
           @keyframes slowZoom {
             0% { transform: scale(1); }
@@ -438,7 +464,7 @@ export default function Home() {
             padding-left: 0;
           }
           .dept-link:hover {
-            color: #4ade80; /* Glows green on hover */
+            color: #4ade80; 
             transform: translateX(10px);
           }
           .dept-link::before {
@@ -459,10 +485,8 @@ export default function Home() {
           }
         `}</style>
 
-        {/* 4. Main Content Container */}
         <div style={{ position: 'relative', zIndex: 2, maxWidth: '1400px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '100px', alignItems: 'center' }}>
           
-          {/* Left Side: Intro & Buttons */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
             <h2 style={{ margin: 0, fontSize: '56px', fontWeight: '900', letterSpacing: '-2px', lineHeight: 1.1 }}>
               Find Your Way
@@ -471,12 +495,11 @@ export default function Home() {
               Explore the countless paths and opportunities that Metropolitan University has to offer to shape your future.
             </p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-              <button className="pill-btn">Undergraduate Programs</button>
-              <button className="pill-btn">Graduate Programs</button>
+              <button className="pill-btn" onClick={() => navigate('/academics/cse')}>Undergraduate Programs</button>
+              <button className="pill-btn" onClick={() => navigate('/academics/cse/research')}>Graduate Programs</button>
             </div>
           </div>
 
-          {/* Right Side: Floating Clickable Text Links */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '80px 40px' }}>
             {[
               { name: 'Computer Science & Engineering', path: '/academics/cse' },
@@ -486,11 +509,7 @@ export default function Home() {
               { name: 'English', path: '/academics/english' },
               { name: 'Law & Justice', path: '/academics/law' }
             ].map((dept, i) => (
-              <div 
-                key={i} 
-                onClick={() => navigate(dept.path)} 
-                className="dept-link"
-              >
+              <div key={i} onClick={() => navigate(dept.path)} className="dept-link">
                 {dept.name}
               </div>
             ))}
@@ -605,8 +624,8 @@ export default function Home() {
             }}
               onMouseOver={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = `0 12px 28px ${RED}70`; }}
               onMouseOut={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = `0 8px 24px ${RED}60`; }}
-            >Login to Portal →</button>
-            <p style={{ margin: 0, fontSize: '12px', color: 'rgba(255,255,255,0.3)', textAlign: 'center' }}>Use your student ID to log in</p>
+            >Sign In Now →</button>
+            <p style={{ margin: 0, fontSize: '12px', color: 'rgba(255,255,255,0.3)', textAlign: 'center' }}>Use your university ID to log in</p>
           </div>
         </div>
       </div>
@@ -661,6 +680,38 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      {/* ✨ NEW: Cinematic Video Modal Overlay with your exact YouTube Link! */}
+      {showVideo && (
+        <div style={{
+          position: 'fixed', inset: 0, zIndex: 9999,
+          background: 'rgba(10, 18, 48, 0.95)', 
+          display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '40px',
+          backdropFilter: 'blur(10px)',
+          animation: 'fadeIn 0.3s ease-out'
+        }}>
+          <div style={{ width: '100%', maxWidth: '1000px', display: 'flex', justifyContent: 'flex-end', marginBottom: '16px' }}>
+            <button onClick={() => setShowVideo(false)} style={{ 
+              background: 'transparent', border: 'none', color: '#fff', fontSize: '16px', fontWeight: '700', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' 
+            }}>
+              ✕ Close Video
+            </button>
+          </div>
+          
+          <div style={{ 
+            width: '100%', maxWidth: '1000px', aspectRatio: '16/9', background: '#000', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 32px 64px rgba(0,0,0,0.6)' 
+          }}>
+            <iframe 
+              width="100%" height="100%" 
+              src="https://www.youtube.com/embed/-ebN8DS1Zts?autoplay=1" 
+              title="Metropolitan University Overview" 
+              frameBorder="0" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+              allowFullScreen>
+            </iframe>
+          </div>
+        </div>
+      )}
 
     </div>
   );
