@@ -83,7 +83,7 @@ export default function Home() {
 
       <nav style={{
         position: 'sticky', top: 0, zIndex: 999,
-        height: '68px', padding: '0 60px',
+        height: '85px', padding: '0 60px',
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         background: scrolled ? '#fff' : '#fff',
         borderBottom: `1px solid ${scrolled ? '#eee' : '#f0f0f0'}`,
@@ -91,7 +91,7 @@ export default function Home() {
         transition: 'all 0.3s ease',
       }}>
         <div onClick={() => navigate('/')} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0' }}>
-          <img src={muLogo} alt="MU" style={{ height: '46px', objectFit: 'contain' }} />
+          <img src={muLogo} alt="MU" style={{ height: '100px', objectFit: 'contain' }} />
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '2px', height: '100%' }}>
@@ -202,7 +202,7 @@ export default function Home() {
           onMouseOut={e => e.currentTarget.style.background = NAVY}
         >
           <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#4ade80', display: 'inline-block' }} />
-          Student Portal
+          MU Connect
         </button>
       </nav>
 
