@@ -10,7 +10,9 @@ import Accreditation            from './pages/Accreditation';
 import FactsAbout               from './pages/FactsAbout';
 import CSEDepartment            from './pages/CSEDepartment';
 import InternationalRecognition from './pages/InternationalRecognition';
-
+import BoardOfTrustees          from './pages/BoardOfTrustees'; 
+import ExecutiveLeaders         from './pages/ExecutiveLeaders';
+import Deans from './pages/Deans';
 // Auth
 import Login from './pages/Login';
 
@@ -59,6 +61,9 @@ function App() {
         <Route path="/about/international-recognition" element={<InternationalRecognition />} />
         <Route path="/about/facts"                     element={<FactsAbout />} />
         <Route path="/academics/cse"                   element={<CSEDepartment />} />
+        <Route path="/about/trustees"                  element={<BoardOfTrustees />} />
+        <Route path="/about/leaders"                   element={<ExecutiveLeaders />} />
+        <Route path="/about/deans" element={<Deans />} />
 
         {/* Auth */}
         <Route path="/login" element={<Login />} />

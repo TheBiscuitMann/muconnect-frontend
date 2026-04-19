@@ -28,11 +28,10 @@ const ABOUT_MENU = [
   }
 ];
 
-// ✨ NEW: Academic Menu Data matching your specific departments
 const ACADEMIC_MENU = [
   {
     title: 'School of Science & Technology',
-    links: ['Computer Science & Engineering (CSE)', 'Data Science', 'Software Engineering','Electrical and Electronics Engineering']
+    links: ['Computer Science & Engineering (CSE)', 'Data Science', 'Software Engineering']
   },
   {
     title: 'School of Business & Economics',
@@ -69,7 +68,6 @@ export default function Home() {
   const [scrolled, setScrolled] = useState(false);
   const [activeNav, setActiveNav] = useState(null);
   
-  // State to track which mega-menu is open
   const [hoveredMenu, setHoveredMenu] = useState(null); 
   const heroRef = useRef(null);
 
@@ -86,7 +84,7 @@ export default function Home() {
     <div style={{ fontFamily: "'Segoe UI', system-ui, sans-serif", color: NAVY, background: '#fff', overflowX: 'hidden' }}>
 
       {/* ═══════════════════════════════════════════════════════
-          NAVBAR — minimal, clean, sticky
+          NAVBAR
       ═══════════════════════════════════════════════════════ */}
       <nav style={{
         position: 'sticky', top: 0, zIndex: 999,
@@ -97,12 +95,10 @@ export default function Home() {
         boxShadow: scrolled ? '0 4px 24px rgba(30,42,110,0.08)' : 'none',
         transition: 'all 0.3s ease',
       }}>
-        {/* Logo */}
         <div onClick={() => navigate('/')} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0' }}>
           <img src={muLogo} alt="MU" style={{ height: '46px', objectFit: 'contain' }} />
         </div>
 
-        {/* Center links with Mega Menu Logic */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '2px', height: '100%' }}>
           {NAV_LINKS.map(l => (
             <div key={l} style={{ height: '100%', display: 'flex', alignItems: 'center' }}>
@@ -114,7 +110,6 @@ export default function Home() {
                     navigate('/notices');
                     setHoveredMenu(null);
                   } else if (l === 'About' || l === 'Academics' || l === 'Admission') {
-                    // Toggle menu open/close on click
                     setHoveredMenu(hoveredMenu === l ? null : l);
                   } else {
                     setHoveredMenu(null);
@@ -131,7 +126,6 @@ export default function Home() {
                 }}
               >
                 {l}
-                {/* Add a tiny arrow for dropdown indicators */}
                 {(l === 'About' || l === 'Academics' || l === 'Admission') && (
                   <span style={{ fontSize: '10px', transform: hoveredMenu === l ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }}>▼</span>
                 )}
@@ -140,7 +134,7 @@ export default function Home() {
                 )}
               </button>
 
-              {/* ── THE MEGA MENU DROPDOWN (DYNAMIC FOR BOTH ABOUT & ACADEMICS) ── */}
+              {/* ── THE MEGA MENU DROPDOWN ── */}
               {(l === 'About' || l === 'Academics') && hoveredMenu === l && (
                 <div style={{
                   position: 'absolute', top: '68px', left: 0, right: 0,
@@ -152,7 +146,6 @@ export default function Home() {
                 }}>
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '40px', width: '100%', maxWidth: '1300px' }}>
                     
-                    {/* ✨ SMART LOGIC: If hoveredMenu is 'About', map ABOUT_MENU. Otherwise map ACADEMIC_MENU */}
                     {(hoveredMenu === 'About' ? ABOUT_MENU : ACADEMIC_MENU).map(col => (
                       <div key={col.title}>
                         <div style={{ borderBottom: '1px solid rgba(255,255,255,0.2)', paddingBottom: '12px', marginBottom: '16px' }}>
@@ -161,19 +154,21 @@ export default function Home() {
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
                           {col.links.map(link => (
                             <span key={link} 
-
                               onClick={() => { 
-                                // ✨ FIX: Specific routing for About links
+                                // Specific routing for About links
                                 if(link === 'Brief History') navigate('/about/history');
                                 if(link === 'Vision, Mission & Strategy') navigate('/about/vision-mission');
                                 if(link === 'Accreditation') navigate('/about/accreditation');
                                 if(link === 'International Recognition') navigate('/about/international-recognition');
                                 if(link === 'Facts About MU') navigate('/about/facts');
+                                if(link === 'Deans, Chairs & Directors') navigate('/about/deans');
+                          
+                                if(link === 'Board of Trustees') navigate('/about/trustees');
+                                if(link === 'VC, Pro-VC & Treasurer') navigate('/about/leaders');
                                 
-                                // ✨ FIX: Specific routing for Academic links
+                                // Specific routing for Academic links
                                 if(link === 'Computer Science & Engineering (CSE)') navigate('/academics/cse');
                                 
-                                // Closes the menu
                                 setHoveredMenu(null); 
                               }}
                               style={{ color: 'rgba(255,255,255,0.65)', fontSize: '14px', cursor: 'pointer', transition: 'all 0.2s', display: 'flex', alignItems: 'center', gap: '8px' }}
@@ -211,7 +206,7 @@ export default function Home() {
       </nav>
 
       {/* ═══════════════════════════════════════════════════════
-          HERO — Split Canvas design
+          HERO
       ═══════════════════════════════════════════════════════ */}
       <div ref={heroRef} style={{ 
         minHeight: 'calc(100vh - 68px)', 
@@ -224,13 +219,11 @@ export default function Home() {
       }}>
         <style>{`@keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }`}</style>
         
-        {/* Left panel — Semi-transparent white */}
         <div style={{
           flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center',
           padding: '80px 64px 80px 60px', position: 'relative', zIndex: 2,
-          background: 'rgba(255, 255, 255, 0.94)', // Made slightly transparent
+          background: 'rgba(255, 255, 255, 0.94)', 
         }}>
-          {/* Chartered badge */}
           <div style={{
             display: 'inline-flex', alignItems: 'center', gap: '8px',
             border: `1px solid ${RED}30`, background: '#fff8f8',
@@ -243,7 +236,6 @@ export default function Home() {
             </span>
           </div>
 
-          {/* Giant headline */}
           <div style={{ marginBottom: '32px' }}>
             <h1 style={{ margin: '0 0 16px', fontSize: '80px', fontWeight: '900', lineHeight: 0.95, letterSpacing: '-4px', color: NAVY }}>
               Edu
@@ -263,7 +255,6 @@ export default function Home() {
             and students become global citizens since 2003.
           </p>
 
-          {/* CTAs */}
           <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
             <button style={{
               padding: '14px 32px', borderRadius: '6px', fontSize: '14px',
@@ -285,7 +276,6 @@ export default function Home() {
             >Watch Overview</button>
           </div>
 
-          {/* Bottom accent line */}
           <div style={{ marginTop: '64px', display: 'flex', alignItems: 'center', gap: '12px' }}>
             <div style={{ width: '40px', height: '3px', background: RED, borderRadius: '2px' }} />
             <div style={{ width: '20px', height: '3px', background: `${NAVY}30`, borderRadius: '2px' }} />
@@ -294,28 +284,24 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Right panel — Semi-transparent navy with stat grid */}
         <div style={{
           width: '420px', flexShrink: 0,
-          background: 'rgba(30, 42, 110, 0.92)', // Made slightly transparent
+          background: 'rgba(30, 42, 110, 0.92)', 
           display: 'flex', flexDirection: 'column',
           justifyContent: 'center',
           padding: '60px 48px',
           position: 'relative', overflow: 'hidden',
         }}>
-          {/* Background texture */}
           <div style={{ position: 'absolute', inset: 0, opacity: 0.04,
             backgroundImage: `radial-gradient(circle, #fff 1px, transparent 1px)`,
             backgroundSize: '24px 24px',
           }} />
-          {/* Red top accent */}
           <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '4px', background: RED }} />
 
           <p style={{ margin: '0 0 32px', fontSize: '11px', fontWeight: '700', letterSpacing: '3px', textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)' }}>
             By the numbers
           </p>
 
-          {/* Stat items — stacked vertically */}
           {[
             { val: '6,000+',  label: 'Active Students',      sub: 'Across all departments' },
             { val: '250+',    label: 'Expert Faculty',         sub: 'PhD holders & practitioners' },
@@ -338,7 +324,6 @@ export default function Home() {
             </div>
           ))}
 
-          {/* UGC badge */}
           <div style={{
             marginTop: '28px', padding: '14px 18px',
             background: 'rgba(255,255,255,0.05)',
@@ -400,7 +385,6 @@ export default function Home() {
           >Our Full Story →</button>
         </div>
 
-        {/* Right: milestone timeline */}
         <div style={{ position: 'relative' }}>
           <div style={{ position: 'absolute', left: '16px', top: 0, bottom: 0, width: '1px', background: '#eee' }} />
           {[
@@ -424,7 +408,7 @@ export default function Home() {
       </div>
 
       {/* ═══════════════════════════════════════════════════════
-          DEPARTMENTS — horizontal card layout
+          DEPARTMENTS
       ═══════════════════════════════════════════════════════ */}
       <div style={{ background: '#f7f8fc', padding: '100px 60px', borderTop: '1px solid #eee' }}>
         <div style={{ maxWidth: '1300px', margin: '0 auto' }}>
@@ -456,7 +440,6 @@ export default function Home() {
               { code: 'DS',   name: 'Data Science',                   school: 'Science & Technology', students: '200+',   color: NAVY,  tag: 'New 2026' },
             ].map((d, i) => (
               <div key={i} 
-                // ✨ FIX: Specific routing for the CSE Card
                 onClick={() => { if(d.code === 'CSE') navigate('/academics/cse'); }} 
                 style={{
                 background: '#fff', borderRadius: '12px', padding: '28px',
@@ -474,7 +457,6 @@ export default function Home() {
                     padding: '3px 10px', borderRadius: '20px', letterSpacing: '0.5px',
                   }}>{d.tag}</div>
                 )}
-                {/* Code */}
                 <div style={{ marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '10px' }}>
                   <div style={{
                     width: '44px', height: '44px', borderRadius: '10px',
@@ -496,7 +478,7 @@ export default function Home() {
       </div>
 
       {/* ═══════════════════════════════════════════════════════
-          NOTICES — timeline style
+          NOTICES
       ═══════════════════════════════════════════════════════ */}
       <div style={{ padding: '100px 60px', maxWidth: '1300px', margin: '0 auto' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '52px' }}>
@@ -557,7 +539,7 @@ export default function Home() {
       </div>
 
       {/* ═══════════════════════════════════════════════════════
-          ALUMNI STRIP — horizontal logos/names
+          ALUMNI STRIP
       ═══════════════════════════════════════════════════════ */}
       <div style={{ borderTop: '1px solid #eee', borderBottom: '1px solid #eee', padding: '40px 60px', background: '#fafbfc' }}>
         <div style={{ maxWidth: '1300px', margin: '0 auto', display: 'flex', alignItems: 'center', gap: '48px' }}>
@@ -584,11 +566,8 @@ export default function Home() {
           display: 'flex', justifyContent: 'space-between', alignItems: 'center',
           position: 'relative', overflow: 'hidden',
         }}>
-          {/* Red stripe left */}
           <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: '6px', background: RED }} />
-          {/* Dot grid */}
           <div style={{ position: 'absolute', inset: 0, opacity: 0.04, backgroundImage: 'radial-gradient(circle, #fff 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
-          {/* Large ghost text */}
           <div style={{ position: 'absolute', right: '40px', bottom: '-20px', fontSize: '160px', fontWeight: '900', color: 'rgba(255,255,255,0.03)', letterSpacing: '-8px', userSelect: 'none', lineHeight: 1 }}>
             MU
           </div>
@@ -625,7 +604,6 @@ export default function Home() {
       <footer style={{ background: '#0a1230', padding: '72px 60px 40px', borderTop: `4px solid ${RED}` }}>
         <div style={{ maxWidth: '1300px', margin: '0 auto' }}>
           <div style={{ display: 'grid', gridTemplateColumns: '2.5fr 1fr 1fr 1fr', gap: '60px', marginBottom: '60px' }}>
-            {/* Brand */}
             <div>
               <div style={{ background: '#fff', display: 'inline-block', padding: '8px 16px', borderRadius: '8px', marginBottom: '20px' }}>
                 <img src={muLogo} alt="MU" style={{ height: '38px', objectFit: 'contain', display: 'block' }} />
@@ -639,7 +617,6 @@ export default function Home() {
               </a>
             </div>
 
-            {/* Link columns */}
             {[
               { title: 'Academics',   links: ['Departments', 'Admission', 'Tuition & Fees', 'Academic Calendar', 'Research'] },
               { title: 'Campus',      links: ['Student Clubs', 'Sports', 'Events', 'Library', 'Career Services'] },
@@ -659,12 +636,10 @@ export default function Home() {
             ))}
           </div>
 
-          {/* Footer bottom */}
           <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: '28px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <p style={{ margin: 0, fontSize: '12px', color: 'rgba(255,255,255,0.2)' }}>
               © 2026 Metropolitan University, Sylhet. All rights reserved.
             </p>
-            {/* MU color bar */}
             <div style={{ display: 'flex', gap: '4px' }}>
               {[GREY, RED, NAVY].map((c, i) => (
                 <div key={i} style={{ width: '28px', height: '4px', background: c, borderRadius: '2px', opacity: i === 1 ? 1 : 0.5 }} />
