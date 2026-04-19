@@ -24,14 +24,17 @@ import CSEResearch              from './pages/CSEResearch';
 import LawDept                  from './pages/LawDept';
 import DataScience              from './pages/DataScience';
 
-// ✨ Make sure you have created these files in your pages folder!
 import English                  from './pages/EnglishDept'; 
 import SoftwareEngineering      from './pages/SoftwareEngineering';
 import BBA                      from './pages/BBA';
 import Economics                from './pages/Economics';
-import BA                from './pages/BA';
+import BA                       from './pages/BA';
 
-
+// Admission Master Page
+import AdmissionPage            from './pages/AdmissionPage';
+import CampusLife from './pages/CampusLife';
+import Clubs from './pages/Clubs';
+import Contact from './pages/Contact';
 // Auth
 import Login from './pages/Login';
 
@@ -98,6 +101,12 @@ function App() {
         <Route path="/academics/bba"                   element={<BBA />} />
         <Route path="/academics/economics"             element={<Economics/>} />
         <Route path="/academics/ba"                    element={<BA />} />
+        
+        {/* Admission Route */}
+        <Route path="/admission/:topic"                element={<AdmissionPage />} />
+        <Route path="/campus-life" element={<CampusLife />} />
+        <Route path="/clubs" element={<Clubs />} />
+        <Route path="/contact" element={<Contact />} />
 
         {/* Auth */}
         <Route path="/login" element={<Login />} />
