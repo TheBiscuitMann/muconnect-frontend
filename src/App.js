@@ -38,6 +38,7 @@ import CampusLife               from './pages/CampusLife';
 import Clubs                    from './pages/Clubs';
 import Contact                  from './pages/Contact';
 import UniversityLegacy from './pages/UniversityLegacy';
+import ApplicationForm from './pages/ApplicationForm';
 
 // Auth
 import Login from './pages/Login';
@@ -111,6 +112,7 @@ function App() {
         <Route path="/campus-life"                     element={<CampusLife />} />
         <Route path="/clubs"                           element={<Clubs />} />
         <Route path="/contact"                         element={<Contact />} />
+        <Route path="/apply/:formType" element={<ApplicationForm />} />
         <Route path="/our-legacy" element={<UniversityLegacy />} />
 
         {/* Auth */}

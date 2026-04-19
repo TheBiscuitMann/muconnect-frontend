@@ -48,7 +48,7 @@ export default function Home() {
   const [hoveredMenu, setHoveredMenu] = useState(null); 
   const [showVideo, setShowVideo] = useState(false);
   
-  // State to track which programs to show (Undergrad vs Grad)
+  
   const [programType, setProgramType] = useState('undergrad');
 
   const heroRef = useRef(null);
@@ -62,7 +62,7 @@ export default function Home() {
 
   const NAV_LINKS = ['About', 'Academics', 'Admission', 'Research', 'Campus Life', 'Notices', 'Contact'];
 
-  // Data Arrays for the Dynamic Toggling
+  
   const undergradPrograms = [
     { name: 'Computer Science & Engineering', path: '/academics/cse', sub: 'Science & Technology' },
     { name: 'Software Engineering', path: '/academics/software-engineering', sub: 'Science & Technology' },
@@ -340,7 +340,7 @@ export default function Home() {
           <p style={{ margin: '0 0 18px', fontSize: '17px', color: '#555', lineHeight: 1.85 }}>Since 2003, we've been building something rare: a university that combines academic rigor with the spirit of real-world ambition. Every program, every lab, every mentorship is designed with one question in mind — what kind of world will our students build?</p>
           <p style={{ margin: '0 0 40px', fontSize: '17px', color: '#555', lineHeight: 1.85 }}>Our graduates work at Microsoft, Google, and Amazon. They lead nonprofits, research labs, courtrooms, and startups. They're not just employed — they're impactful.</p>
           <button 
-  onClick={() => navigate('/our-legacy')} // ✨ This is the magic link
+  onClick={() => navigate('/our-legacy')} 
   style={{ 
     padding: '13px 30px', 
     borderRadius: '6px', 
@@ -372,7 +372,7 @@ export default function Home() {
       </div>
 
       {/* ═══════════════════════════════════════════════════════
-          DEPARTMENTS (IMMERSIVE "BRAC" STYLE DYNAMIC TOGGLE)
+        
       ═══════════════════════════════════════════════════════ */}
       <div id="find-your-way" style={{ position: 'relative', overflow: 'hidden', padding: '120px 60px', color: '#fff', borderTop: '1px solid #eee' }}>
         <div style={{ position: 'absolute', top: '-10%', left: '-10%', width: '120%', height: '120%', backgroundImage: `url(${realBanner})`, backgroundSize: 'cover', backgroundPosition: 'center', animation: 'slowZoom 25s linear infinite alternate', zIndex: 0 }} />
@@ -413,21 +413,105 @@ export default function Home() {
         </div>
       </div>
 
+      {/* ═══════════════════════════════════════════════════════
+          VIBRANT NOTICES SECTION
+      ═══════════════════════════════════════════════════════ */}
       <div style={{ padding: '100px 60px', maxWidth: '1300px', margin: '0 auto' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '52px' }}>
-          <div><SectionLabel num="03" text="Latest" /><h2 style={{ margin: 0, fontSize: '48px', fontWeight: '900', letterSpacing: '-2px', color: NAVY, lineHeight: 1.05 }}>Stay in the loop.</h2></div>
-          <button onClick={() => navigate('/notices')} style={{ padding: '10px 22px', borderRadius: '6px', fontSize: '13px', fontWeight: '600', cursor: 'pointer', border: 'none', background: NAVY, color: '#fff', transition: 'all 0.25s' }} onMouseOver={e => e.currentTarget.style.background = RED} onMouseOut={e => e.currentTarget.style.background = NAVY}>All Notices →</button>
+          <div>
+            <SectionLabel num="03" text="Latest Updates" />
+            <h2 style={{ margin: 0, fontSize: '48px', fontWeight: '900', letterSpacing: '-2px', color: NAVY, lineHeight: 1.05 }}>
+              Stay in the loop.
+            </h2>
+          </div>
+          <button onClick={() => navigate('/notices')} style={{ padding: '12px 28px', borderRadius: '8px', fontSize: '14px', fontWeight: '700', cursor: 'pointer', border: 'none', background: NAVY, color: '#fff', transition: 'all 0.25s', boxShadow: `0 8px 24px ${NAVY}40` }} 
+            onMouseOver={e => { e.currentTarget.style.background = RED; e.currentTarget.style.transform = 'translateY(-2px)'; }} 
+            onMouseOut={e => { e.currentTarget.style.background = NAVY; e.currentTarget.style.transform = 'translateY(0)'; }}
+          >
+            All Notices →
+          </button>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0', border: '1px solid #eee', borderRadius: '12px', overflow: 'hidden' }}>
-          {notices.length > 0 ? notices : [{ title: 'Supplementary Exam Routine — Autumn Term 2025', category: 'exam', published_at: '2026-03-15' }, { title: 'Ramadan Class Routine — Spring Semester 2026', category: 'academic', published_at: '2026-03-10' }, { title: 'CSE Fest 2026 — Registration Now Open', category: 'event', published_at: '2026-03-05' }, { title: 'New Data Science Program — Applications Open', category: 'academic', published_at: '2026-03-01' }].slice(0, 4).map((n, i) => {
-            const catStyle = { exam: { color: RED, bg: '#fff0f0', label: 'Exam' }, academic: { color: NAVY, bg: '#f0f3ff', label: 'Academic' }, event: { color: '#16a34a', bg: '#f0fdf4', label: 'Event' }, general: { color: GREY, bg: '#f5f5f5', label: 'General' } }[n.category] || { color: GREY, bg: '#f5f5f5', label: 'General' };
-            return (
-              <div key={i} style={{ padding: '28px 32px', borderBottom: i < 2 ? '1px solid #eee' : 'none', borderRight: i % 2 === 0 ? '1px solid #eee' : 'none', background: '#fff', cursor: 'pointer', transition: 'background 0.2s' }} onMouseOver={e => e.currentTarget.style.background = '#fafbff'} onMouseOut={e => e.currentTarget.style.background = '#fff'}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}><span style={{ fontSize: '10px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '1.5px', color: catStyle.color, background: catStyle.bg, padding: '3px 10px', borderRadius: '3px' }}>{catStyle.label}</span><span style={{ fontSize: '12px', color: '#ccc' }}>{n.published_at ? new Date(n.published_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) : ''}</span></div>
-                <h3 style={{ margin: '0 0 16px', fontSize: '15px', fontWeight: '700', color: NAVY, lineHeight: 1.5 }}>{n.title}</h3><span style={{ fontSize: '13px', color: RED, fontWeight: '600' }}>Read more →</span>
+
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
+          {[
+            { 
+              id: 'exam',
+              title: "Autumn '25: Personalized Exam Schedules", 
+              desc: "Your specific supplementary exam dates and seat plans are now available.",
+              category: "URGENT", color: RED, bg: '#fff0f0', date: '15 Mar',
+              actionText: "View in Student Portal", route: '/login' 
+            },
+            { 
+              id: 'ramadan',
+              title: "Spring '26: Holy Month Class Timings", 
+              desc: "Adjusted schedules for theory and lab classes during Ramadan.",
+              category: "ACADEMIC", color: NAVY, bg: '#f0f3ff', date: '10 Mar',
+              actionText: "View in Student Portal", route: '/login' 
+            },
+            { 
+              id: 'cse-fest',
+              title: "CSE Fest 2026: The Ultimate Tech Showdown", 
+              desc: "Hackathons, robotics, and gaming. Secure your team's spot today!",
+              category: "EVENT", color: '#10b981', bg: '#ecfdf5', date: '05 Mar', // Emerald Green
+              actionText: "Register Now", route: '/apply/cse-fest' 
+            },
+            { 
+              id: 'data-science',
+              title: "Pioneer the Future: Data Science Admissions", 
+              desc: "Applications are now live for our inaugural B.Sc. in Data Science cohort.",
+              category: "ADMISSION", color: '#8b5cf6', bg: '#f5f3ff', date: '01 Mar', // Vibrant Purple
+              actionText: "Apply Here", route: '/apply/data-science' 
+            }
+          ].map((n, i) => (
+            <div 
+              key={i} 
+              onClick={() => navigate(n.route)}
+              style={{ 
+                padding: '40px', borderRadius: '24px', background: '#fff', cursor: 'pointer', 
+                border: '1px solid #f0f0f0', position: 'relative', overflow: 'hidden',
+                boxShadow: '0 8px 32px rgba(0,0,0,0.03)', transition: 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)' 
+              }} 
+              onMouseOver={e => { 
+                e.currentTarget.style.transform = 'translateY(-8px)'; 
+                e.currentTarget.style.boxShadow = `0 24px 48px ${n.color}20`;
+                e.currentTarget.style.borderColor = `${n.color}50`;
+                e.currentTarget.querySelector('.action-arrow').style.transform = 'translateX(8px)';
+                e.currentTarget.querySelector('.bg-glow').style.opacity = '0.05';
+              }} 
+              onMouseOut={e => { 
+                e.currentTarget.style.transform = 'translateY(0)'; 
+                e.currentTarget.style.boxShadow = '0 8px 32px rgba(0,0,0,0.03)';
+                e.currentTarget.style.borderColor = '#f0f0f0';
+                e.currentTarget.querySelector('.action-arrow').style.transform = 'translateX(0)';
+                e.currentTarget.querySelector('.bg-glow').style.opacity = '0';
+              }}
+            >
+              {/* Subtle dynamic background glow */}
+              <div className="bg-glow" style={{ position: 'absolute', top: 0, right: 0, bottom: 0, left: 0, background: `linear-gradient(135deg, transparent 50%, ${n.color} 100%)`, opacity: 0, transition: 'opacity 0.4s ease' }} />
+
+              <div style={{ position: 'relative', zIndex: 1 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+                  <span style={{ fontSize: '11px', fontWeight: '900', textTransform: 'uppercase', letterSpacing: '2px', color: n.color, background: n.bg, padding: '6px 14px', borderRadius: '40px' }}>
+                    {n.category}
+                  </span>
+                  <span style={{ fontSize: '13px', color: '#a0a0a0', fontWeight: '600' }}>{n.date}</span>
+                </div>
+                
+                <h3 style={{ margin: '0 0 12px', fontSize: '22px', fontWeight: '800', color: NAVY, lineHeight: 1.3, letterSpacing: '-0.5px' }}>
+                  {n.title}
+                </h3>
+                
+                <p style={{ margin: '0 0 24px', fontSize: '15px', color: GREY, lineHeight: 1.6 }}>
+                  {n.desc}
+                </p>
+
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: n.color, fontWeight: '700', fontSize: '14px' }}>
+                  {n.actionText}
+                  <span className="action-arrow" style={{ transition: 'transform 0.3s ease', display: 'inline-block' }}>→</span>
+                </div>
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
       </div>
 
