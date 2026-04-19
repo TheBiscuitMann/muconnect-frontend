@@ -90,7 +90,7 @@ export default function Home() {
           NAVBAR 
       ═══════════════════════════════════════════════════════ */}
       <nav style={{
-        position: 'sticky', top: 0, zIndex: 999, height: '85px', padding: '0 60px', 
+        position: 'sticky', top: 0, zIndex: 999, height: '140px', padding: '0 60px', 
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         background: scrolled ? '#fff' : '#fff',
         borderBottom: `1px solid ${scrolled ? '#eee' : '#f0f0f0'}`,
@@ -98,7 +98,7 @@ export default function Home() {
         transition: 'all 0.3s ease',
       }}>
         <div onClick={() => navigate('/')} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
-          <img src={muLogo} alt="MU" style={{ height: '65px', objectFit: 'contain' }} /> 
+          <img src={muLogo} alt="MU" style={{ height: '170px', objectFit: 'contain' }} /> 
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '2px', height: '100%' }}>
