@@ -12,7 +12,12 @@ import CSEDepartment            from './pages/CSEDepartment';
 import InternationalRecognition from './pages/InternationalRecognition';
 import BoardOfTrustees          from './pages/BoardOfTrustees'; 
 import ExecutiveLeaders         from './pages/ExecutiveLeaders';
-import Deans from './pages/Deans';
+import Deans                    from './pages/Deans';
+import AcademicCouncil          from './pages/AcademicCouncil';
+import Administration           from './pages/Administration';
+
+
+
 // Auth
 import Login from './pages/Login';
 
@@ -64,6 +69,10 @@ function App() {
         <Route path="/about/trustees"                  element={<BoardOfTrustees />} />
         <Route path="/about/leaders"                   element={<ExecutiveLeaders />} />
         <Route path="/about/deans" element={<Deans />} />
+        <Route path="/about/academic-council" element={<AcademicCouncil />} />
+        <Route path="/about/administration" element={<Administration />} />
+
+
 
         {/* Auth */}
         <Route path="/login" element={<Login />} />

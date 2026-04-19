@@ -162,9 +162,12 @@ export default function Home() {
                                 if(link === 'International Recognition') navigate('/about/international-recognition');
                                 if(link === 'Facts About MU') navigate('/about/facts');
                                 if(link === 'Deans, Chairs & Directors') navigate('/about/deans');
+                                if(link === 'Administration') navigate('/about/administration');
+                            
                           
                                 if(link === 'Board of Trustees') navigate('/about/trustees');
                                 if(link === 'VC, Pro-VC & Treasurer') navigate('/about/leaders');
+                                if(link === 'Academic Council') navigate('/about/academic-council');
                                 
                                 // Specific routing for Academic links
                                 if(link === 'Computer Science & Engineering (CSE)') navigate('/academics/cse');
