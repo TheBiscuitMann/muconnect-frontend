@@ -78,10 +78,11 @@ export default function FacultyDashboard() {
   };
 
   const navItems = [
-    { icon: '🏠', label: 'Dashboard',           path: '/faculty/dashboard' },
-    { icon: '📚', label: 'My Courses',           path: '/faculty/courses' },
-    { icon: '📋', label: 'Retake Applications',  path: '/faculty/retakes', badge: data?.pending_retakes },
-  ];
+  { icon: '🏠', label: 'Dashboard',          path: '/faculty/dashboard' },
+  { icon: '📚', label: 'My Courses',          path: '/faculty/courses' },
+  { icon: '📋', label: 'Retake Applications', path: '/faculty/retakes', badge: data?.pending_retakes },
+  { icon: '📅', label: 'Attendance',          path: '/faculty/attendance' },
+];
 
   if (loading) return (
     <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f7f8fc' }}>
